@@ -216,7 +216,7 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 .proj__scroll { position: fixed; left: var(--m); bottom: calc(var(--m) + env(safe-area-inset-bottom, 0px)); margin: 0; }
 
 /* every image fits in the screen: wide ones fill the column, tall posters stop at 78vh */
-.proj__media { width: 42vw; margin-left: 29vw; padding-top: 30vh; display: grid; gap: 140px; }
+.proj__media { width: 42vw; margin-left: 29vw; padding-top: 30vh; display: grid; gap: 56px; }
 .shot { display: flex; justify-content: center; width: 100%; cursor: zoom-in; }
 .shot img { width: auto; max-width: 100%; height: auto; max-height: 78vh; background: #dcdcd9; }
 .shot--video { display: block; }
@@ -226,8 +226,8 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 #lbMedia video { max-width: min(92vw, 1600px); max-height: 80vh; display: block; }
 
 .proj__title {
-  position: absolute; z-index: 3; pointer-events: none; margin: 0;
-  right: calc(var(--m) + 96px); top: calc(100vh - 31vh);
+  position: fixed; z-index: 3; pointer-events: none; margin: 0;
+  right: calc(var(--m) + 96px); bottom: calc(var(--m) + env(safe-area-inset-bottom, 0px));
   font: 500 clamp(48px, 6.6vw, 124px)/.88 var(--f-display); font-stretch: 75%;
   text-transform: uppercase; color: var(--accent); text-align: right; letter-spacing: -.01em;
 }
