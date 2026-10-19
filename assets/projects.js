@@ -163,9 +163,10 @@ window.PROJECTS = [
       "#F6C744",
       "#FCEBD6"
     ],
-    "image": "images/ivfmd-nhs-2025/cover.webp",
+    "image": "images/ivfmd-nu-ho-sinh-2025-cover-01.webp",
     "gallery": [
       "images/ivfmd-nhs-2025/showreel.mp4",
+      "images/ivfmd-nu-ho-sinh-2025-01.webp",
       "images/ivfmd-nhs-2025/still-01.webp",
       "images/ivfmd-nhs-2025/still-03.webp",
       "images/ivfmd-nhs-2025/still-04.webp",
@@ -173,11 +174,11 @@ window.PROJECTS = [
       "images/ivfmd-nhs-2025/still-06.webp",
       "images/ivfmd-nhs-2025/still-07.webp",
       "images/ivfmd-nhs-2025/still-08.webp",
-      "images/ivfmd-nhs-2025/still-09.webp",
       "images/ivfmd-nhs-2025/still-10.webp",
-      "images/ivfmd-nhs-2025/still-11.webp",
       "images/ivfmd-nhs-2025/still-12.webp",
-      "images/ivfmd-nhs-2025/still-13.webp"
+      "images/ivfmd-nhs-2025/still-13.webp",
+      "images/ivfmd-nu-ho-sinh-2025-02.webp",
+      "images/ivfmd-nu-ho-sinh-2025-03.webp"
     ]
   },
   {
