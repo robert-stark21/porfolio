@@ -303,10 +303,9 @@
         <aside class="proj__info">
           <dl>
             <div class="row" data-in><dt>About</dt><dd class="proj__about">${esc(p.about || p.desc)}</dd></div>
-            <div class="row row--pair" data-in>
-              <dt>Team<br>Role</dt><dd>${esc(p.team)}<br>${esc(p.role)}</dd>
-              <dt>Launch</dt><dd>${esc(p.launch)}</dd>
-            </div>
+            ${p.team ? `<div class="row" data-in><dt>Team</dt><dd>${esc(p.team)}</dd></div>` : ""}
+            ${p.role ? `<div class="row" data-in><dt>Role</dt><dd>${esc(p.role)}</dd></div>` : ""}
+            ${p.launch ? `<div class="row" data-in><dt>Launch</dt><dd>${esc(p.launch)}</dd></div>` : ""}
             <div class="row" data-in><dt>Recognition</dt><dd>${rec}</dd></div>
           </dl>
           ${p.url ? `<a class="proj__visit" data-in href="${esc(p.url)}" target="_blank" rel="noopener">Visit site <span aria-hidden="true">→</span></a>` : ""}
@@ -318,7 +317,7 @@
             ? `<button type="button" class="shot shot--video" id="shot-${k}" data-zoom="${k}" aria-label="Play video ${k + 1} with sound"><video src="${src}" poster="${vidPoster(src)}" muted loop playsinline autoplay preload="metadata" width="1280" height="536"></video><span class="shot__play" aria-hidden="true">▶ Play with sound</span></button>`
             : `<button type="button" class="shot" id="shot-${k}" data-zoom="${k}" aria-label="Enlarge image ${k + 1}"><img src="${src}" alt="${esc(p.title)}, image ${k + 1}" width="1600" height="1000"></button>`).join("")}
         </div>
-        <h1 class="proj__title" id="projTitle" data-in><span>${esc(words.slice(0, half).join(" "))}</span>${words.length > 1 ? ` <span>${esc(words.slice(half).join(" "))}</span>` : ""}</h1>
+        <h1 class="proj__title${p.title.length > 22 ? " proj__title--long" : ""}" id="projTitle" data-in><span>${esc(words.slice(0, half).join(" "))}</span>${words.length > 1 ? ` <span>${esc(words.slice(half).join(" "))}</span>` : ""}</h1>
 
         <nav class="proj__mini" data-mini aria-label="Jump to image">
           ${p.gallery.map((src, k) => `<button type="button" data-shot="${k}" aria-label="Go to image ${k + 1}"><img src="${isVid(src) ? vidPoster(src) : src}" alt="" width="1600" height="1000"></button>`).join("")}

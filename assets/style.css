@@ -202,21 +202,24 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 /* project page: info column left, one column of screenshots, red title, thumbnail strip right */
 .proj { position: relative; padding-top: 0; padding-bottom: 0; }
 .proj__info {
-  position: fixed; left: var(--m); top: 40vh; width: calc(27.5vw - var(--m) - 24px); max-width: 360px; z-index: 2;
+  position: fixed; left: var(--m); top: 30vh; width: calc(29vw - var(--m) - 40px); max-width: 400px; z-index: 2;
+  max-height: calc(70vh - 70px); overflow: auto; scrollbar-width: none;
 }
-.proj__info dl { margin: 0; display: grid; gap: 22px; }
-.proj__info .row { display: grid; grid-template-columns: calc(var(--c2) * .75 - var(--m)) minmax(0, 1fr); column-gap: 8px; }
-.proj__info .row--pair { grid-template-columns: calc(var(--c2) * .75 - var(--m)) minmax(0, 1fr) auto auto; }
+.proj__info::-webkit-scrollbar { display: none; }
+.proj__info dl { margin: 0; display: grid; gap: 26px; }
+.proj__info .row { display: grid; grid-template-columns: 96px minmax(0, 1fr); column-gap: 16px; line-height: 1.55; }
 .proj__info dt { color: var(--muted); }
 .proj__info dd { margin: 0; }
-.proj__about { max-width: 34ch; }
-.proj__visit { display: inline-flex; gap: 6px; margin-top: 26px; margin-left: calc(var(--c2) * .75 - var(--m) + 8px); font-size: 13px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.proj__about { max-width: 38ch; }
+.proj__visit { display: inline-flex; gap: 6px; margin-top: 26px; margin-left: 112px; font-size: 13px; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
 .proj__visit:hover { color: var(--accent); }
 .proj__scroll { position: fixed; left: var(--m); bottom: calc(var(--m) + env(safe-area-inset-bottom, 0px)); margin: 0; }
 
-.proj__media { width: 45vw; margin-left: 27.5vw; padding-top: 31vh; display: grid; gap: 84px; }
-.shot { display: block; width: 100%; cursor: zoom-in; }
-.shot img { width: 100%; background: #dcdcd9; }
+/* every image fits in the screen: wide ones fill the column, tall posters stop at 78vh */
+.proj__media { width: 42vw; margin-left: 29vw; padding-top: 30vh; display: grid; gap: 140px; }
+.shot { display: flex; justify-content: center; width: 100%; cursor: zoom-in; }
+.shot img { width: auto; max-width: 100%; height: auto; max-height: 78vh; background: #dcdcd9; }
+.shot--video { display: block; }
 .shot--video { position: relative; }
 .shot--video video { display: block; width: 100%; height: auto; background: #111; }
 .shot__play { position: absolute; left: 16px; bottom: 16px; padding: 7px 12px; background: var(--paper); color: var(--ink, #111); font-size: 12px; letter-spacing: .02em; pointer-events: none; }
@@ -224,12 +227,12 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 
 .proj__title {
   position: absolute; z-index: 3; pointer-events: none; margin: 0;
-  right: calc(var(--m) + 56px); top: calc(100vh - 31vh);
-  font: 500 clamp(56px, 8.2vw, 150px)/.86 var(--f-display); font-stretch: 75%;
+  right: calc(var(--m) + 96px); top: calc(100vh - 31vh);
+  font: 500 clamp(48px, 6.6vw, 124px)/.88 var(--f-display); font-stretch: 75%;
   text-transform: uppercase; color: var(--accent); text-align: right; letter-spacing: -.01em;
 }
-/* white plate behind each line so a long title stays readable over the images */
-.proj__title span { display: table; margin-left: auto; background: var(--paper); padding: .05em .1em 0; }
+.proj__title--long { font-size: clamp(40px, 4.4vw, 84px); }
+.proj__title span { display: table; margin-left: auto; }
 .proj__title span + span { margin-top: .06em; }
 
 .proj__mini { position: fixed; right: calc(var(--m) + 26px); top: 32vh; width: 46px; display: grid; gap: 6px; z-index: 2; }
@@ -531,9 +534,13 @@ body.is-dark .page { background: var(--night); color: #ececec; --muted: #8a8a8a;
   .proj__title { position: static; order: -2; text-align: left; margin-bottom: 24px; font-size: 64px; }
   .proj__title span { margin-left: 0; }
   .proj__info { position: static; order: -1; width: auto; max-width: none; margin-bottom: 40px; }
-  .proj__visit { margin-left: calc(var(--c2) * .75 - var(--m) + 8px); }
+  .proj__visit { margin-left: 112px; }
+  .proj__info { max-height: none; overflow: visible; }
+  .proj__info .row { grid-template-columns: 84px minmax(0, 1fr); }
+  .shot img { max-height: none; width: 100%; }
   .proj__scroll, .proj__mini { display: none; }
-  .proj__media { width: 100%; margin: 0; padding: 0; gap: 16px; }
+  .proj__media { width: 100%; margin: 0; padding: 0; gap: 28px; }
+  .proj__title--long { font-size: 44px; }
   .cols, .socials { grid-template-columns: 1fr 1fr; }
   .exp li { grid-template-columns: minmax(0, 1fr) auto; row-gap: 2px; }
   .exp__co { grid-row: 2; }
