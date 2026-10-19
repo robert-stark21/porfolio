@@ -128,20 +128,22 @@ window.PROJECTS = [
       "#F2C230",
       "#E9EEF2"
     ],
-    "image": "images/ivfmd-2026/cover.webp",
+    "image": "images/ivfmd-hoi-nghi-dau-nam-2026-cover-01.webp",
     "gallery": [
       "images/ivfmd-2026/showreel.mp4",
       "images/ivfmd-2026/still-02.webp",
       "images/ivfmd-2026/still-01.webp",
       "images/ivfmd-2026/still-03.webp",
-      "images/ivfmd-2026/still-04.webp",
-      "images/ivfmd-2026/still-05.webp",
       "images/ivfmd-2026/still-06.webp",
       "images/ivfmd-2026/still-07.webp",
-      "images/ivfmd-2026/still-08.webp",
       "images/ivfmd-2026/still-09.webp",
-      "images/ivfmd-2026/still-10.webp",
-      "images/ivfmd-2026/still-11.webp"
+      "images/ivfmd-2026/still-11.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-01.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-02.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-03.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-04.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-05.webp",
+      "images/ivfmd-hoi-nghi-dau-nam-2026-06.webp"
     ]
   },
   {
@@ -161,7 +163,7 @@ window.PROJECTS = [
       "#111111",
       "#F2F2F2"
     ],
-    "image": "images/lotte/ke-hoi-sinh/cover.webp",
+    "image": "images/ke-hoi-sinh-cover-01.webp",
     "gallery": [
       "images/lotte/ke-hoi-sinh/poster-01.webp",
       "images/lotte/ke-hoi-sinh/trailer-clip.mp4",
@@ -188,7 +190,7 @@ window.PROJECTS = [
       "#C8201E",
       "#2E6F8E"
     ],
-    "image": "images/lotte/bat-tien/cover.webp",
+    "image": "images/bat-tien-cover-01.webp",
     "gallery": [
       "images/lotte/bat-tien/poster-01.webp",
       "images/lotte/bat-tien/trailer-clip.mp4",
@@ -198,35 +200,7 @@ window.PROJECTS = [
       "images/lotte/bat-tien/led-01.webp",
       "images/lotte/bat-tien/led-02.webp",
       "images/lotte/bat-tien/led-03.webp",
-      "images/lotte/bat-tien/led-04.webp",
       "images/lotte/bat-tien/led-05.webp"
-    ]
-  },
-  {
-    "slug": "hanh-trinh-bat-hao",
-    "title": "Hành Trình Bất Hảo",
-    "category": "The Journey to Gyeong-ju — Korean comedy",
-    "discipline": "Film marketing",
-    "role": "Key art localisation · Trailer · Social & LED",
-    "team": "Lotte Entertainment Vietnam",
-    "launch": "04 Sep 2026",
-    "recognition": [],
-    "url": "",
-    "desc": "Korean family road-trip comedy.",
-    "about": "Korean family road-trip comedy. I localised the title lockup and the Vietnamese teaser trailer, then adapted the key art across the full set of Lotte Cinema LED and lightbox sizes.",
-    "palette": [
-      "#9ED3D6",
-      "#1F3B2D",
-      "#E64B3C"
-    ],
-    "image": "images/lotte/hanh-trinh-bat-hao/cover.webp",
-    "gallery": [
-      "images/lotte/hanh-trinh-bat-hao/poster-01.webp",
-      "images/lotte/hanh-trinh-bat-hao/trailer-clip.mp4",
-      "images/lotte/hanh-trinh-bat-hao/led-01.webp",
-      "images/lotte/hanh-trinh-bat-hao/led-02.webp",
-      "images/lotte/hanh-trinh-bat-hao/led-03.webp",
-      "images/lotte/hanh-trinh-bat-hao/led-04.webp"
     ]
   },
   {
@@ -246,7 +220,7 @@ window.PROJECTS = [
       "#0B1A2A",
       "#E8D9C0"
     ],
-    "image": "images/lotte/coi-bao-tu/cover.webp",
+    "image": "images/coi-bao-tu-cover-01.webp",
     "gallery": [
       "images/lotte/coi-bao-tu/poster-01.webp",
       "images/lotte/coi-bao-tu/trailer-clip.mp4",
@@ -254,8 +228,7 @@ window.PROJECTS = [
       "images/lotte/coi-bao-tu/social-01.webp",
       "images/lotte/coi-bao-tu/social-02.webp",
       "images/lotte/coi-bao-tu/social-03.webp",
-      "images/lotte/coi-bao-tu/social-04.webp",
-      "images/lotte/coi-bao-tu/led-01.webp"
+      "images/lotte/coi-bao-tu/social-04.webp"
     ]
   },
   {
@@ -275,7 +248,7 @@ window.PROJECTS = [
       "#0E1116",
       "#7FA7B8"
     ],
-    "image": "images/lotte/diem-mu/cover.webp",
+    "image": "images/diem-mu-cover-01.webp",
     "gallery": [
       "images/lotte/diem-mu/poster-01.webp",
       "images/lotte/diem-mu/trailer-clip.mp4",
@@ -309,7 +282,7 @@ window.PROJECTS = [
       "#15161A",
       "#C9B68A"
     ],
-    "image": "images/lotte/den-la-sat/cover.webp",
+    "image": "images/den-la-sat-cover-01.webp",
     "gallery": [
       "images/lotte/den-la-sat/poster-01.webp",
       "images/lotte/den-la-sat/trailer-clip.mp4",
@@ -342,7 +315,7 @@ window.PROJECTS = [
       "#1A6FA8",
       "#F3D27A"
     ],
-    "image": "images/lotte/lieu-trai/cover.webp",
+    "image": "images/lieu-trai-cover-01.webp",
     "gallery": [
       "images/lotte/lieu-trai/poster-01.webp",
       "images/lotte/lieu-trai/trailer-clip.mp4",
@@ -379,7 +352,7 @@ window.PROJECTS = [
       "#0A1620",
       "#C9D6DC"
     ],
-    "image": "images/lotte/ho-nuot-nguoi/cover.webp",
+    "image": "images/ho-nuot-nguoi-cover-01.webp",
     "gallery": [
       "images/lotte/ho-nuot-nguoi/poster-01.webp",
       "images/lotte/ho-nuot-nguoi/trailer-clip.mp4",
@@ -387,10 +360,8 @@ window.PROJECTS = [
       "images/lotte/ho-nuot-nguoi/poster-03.webp",
       "images/lotte/ho-nuot-nguoi/poster-04.webp",
       "images/lotte/ho-nuot-nguoi/social-01.webp",
-      "images/lotte/ho-nuot-nguoi/social-02.webp",
       "images/lotte/ho-nuot-nguoi/led-01.webp",
-      "images/lotte/ho-nuot-nguoi/led-02.webp",
-      "images/lotte/ho-nuot-nguoi/led-03.webp"
+      "images/lotte/ho-nuot-nguoi/led-02.webp"
     ]
   },
   {
@@ -410,7 +381,7 @@ window.PROJECTS = [
       "#0B0F14",
       "#8FB3A8"
     ],
-    "image": "images/lotte/phoi-sat/cover.webp",
+    "image": "images/phoi-sat-cover-01.webp",
     "gallery": [
       "images/lotte/phoi-sat/poster-01.webp",
       "images/lotte/phoi-sat/trailer-clip.mp4",
@@ -441,7 +412,7 @@ window.PROJECTS = [
       "#1B2227",
       "#C5CCD0"
     ],
-    "image": "images/lotte/dem-truy-sat/cover.webp",
+    "image": "images/dem-truy-sat-cover-01.webp",
     "gallery": [
       "images/lotte/dem-truy-sat/poster-01.webp",
       "images/lotte/dem-truy-sat/trailer-clip.mp4",
