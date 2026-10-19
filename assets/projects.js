@@ -668,14 +668,6 @@ window.PLAYGROUND = [
     "image": "images/play-19.webp"
   },
   {
-    "title": "508x1440",
-    "image": "images/play-24.webp"
-  },
-  {
-    "title": "2880x480",
-    "image": "images/play-27.webp"
-  },
-  {
     "title": "10-dash-branding-mockup",
     "image": "images/play-30.webp"
   },
