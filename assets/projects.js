@@ -182,6 +182,40 @@ window.PROJECTS = [
     ]
   },
   {
+    "slug": "atlantic-minerals",
+    "title": "Atlantic Minerals",
+    "category": "Brand identity & motion",
+    "discipline": "Branding",
+    "role": "Brand identity · Guidelines · Motion",
+    "team": "Atlantic Minerals Inc.",
+    "launch": "Oct 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "A copper-and-bedrock identity for a mining company: the mark, the guidelines and a 15-second brand motion.",
+    "about": "A full identity for Atlantic Minerals Inc. The angular mark is redrawn as four layers (bedrock, vein, ore and the horizon line) that fold into an arrow pointing forward, set on a 22° grid. Around it sits a dark, material system: Obsidian and Copper as lead colours, Manrope for the wordmark and text with Cormorant Garamond as an accent, plus strata lines, crystal facets and ore textures as graphic language. The guidelines cover logo versions, clear space, colour, type, stationery, digital, applications and a four-poster campaign (Explore, Extract, Refine, Endure). The brand motion is cut to the beat and walks through the whole system in 15 seconds.",
+    "palette": [
+      "#0E0E10",
+      "#B8693F",
+      "#EFEAE3"
+    ],
+    "image": "images/atlantic-minerals/cover.webp",
+    "gallery": [
+      "images/atlantic-minerals/showreel.mp4",
+      "images/atlantic-minerals/guide-02.webp",
+      "images/atlantic-minerals/guide-03.webp",
+      "images/atlantic-minerals/guide-04.webp",
+      "images/atlantic-minerals/guide-05.webp",
+      "images/atlantic-minerals/guide-07.webp",
+      "images/atlantic-minerals/guide-08.webp",
+      "images/atlantic-minerals/guide-09.webp",
+      "images/atlantic-minerals/guide-11.webp",
+      "images/atlantic-minerals/guide-12.webp",
+      "images/atlantic-minerals/guide-13.webp",
+      "images/atlantic-minerals/guide-14.webp",
+      "images/atlantic-minerals/guide-15.webp"
+    ]
+  },
+  {
     "slug": "ke-hoi-sinh",
     "title": "Kẻ Hồi Sinh",
     "category": "Reawakened Man — Korean action",
