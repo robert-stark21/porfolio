@@ -147,6 +147,40 @@ window.PROJECTS = [
     ]
   },
   {
+    "slug": "ivfmd-nu-ho-sinh-2025",
+    "title": "IVFMD Nữ Hộ Sinh 2025",
+    "category": "Year-in-review film & Elephant Award",
+    "discipline": "Motion",
+    "role": "Year-in-review film · Award video · Event visuals",
+    "team": "IVFMD Group",
+    "launch": "Nov 2025",
+    "recognition": [],
+    "url": "",
+    "desc": "A crayon-and-elephant world for the IVFMD midwives' 2025 meeting: the year-in-review film and the Elephant Award.",
+    "about": "Visuals for the 2025 meeting of the IVFMD midwife network. I built a hand-drawn crayon world with a painting elephant as its mascot, then used it for a five-minute year-in-review film (animated charts on hand hygiene, process audits, training and publications) and for the Elephant Award video, which introduces nine midwives of the year from clinics across the system. This 28-second reel is cut to the beat from both films.",
+    "palette": [
+      "#5A2FE0",
+      "#F6C744",
+      "#FCEBD6"
+    ],
+    "image": "images/ivfmd-nhs-2025/cover.webp",
+    "gallery": [
+      "images/ivfmd-nhs-2025/showreel.mp4",
+      "images/ivfmd-nhs-2025/still-01.webp",
+      "images/ivfmd-nhs-2025/still-03.webp",
+      "images/ivfmd-nhs-2025/still-04.webp",
+      "images/ivfmd-nhs-2025/still-05.webp",
+      "images/ivfmd-nhs-2025/still-06.webp",
+      "images/ivfmd-nhs-2025/still-07.webp",
+      "images/ivfmd-nhs-2025/still-08.webp",
+      "images/ivfmd-nhs-2025/still-09.webp",
+      "images/ivfmd-nhs-2025/still-10.webp",
+      "images/ivfmd-nhs-2025/still-11.webp",
+      "images/ivfmd-nhs-2025/still-12.webp",
+      "images/ivfmd-nhs-2025/still-13.webp"
+    ]
+  },
+  {
     "slug": "ke-hoi-sinh",
     "title": "Kẻ Hồi Sinh",
     "category": "Reawakened Man — Korean action",
