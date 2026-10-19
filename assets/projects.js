@@ -5,7 +5,7 @@
    ========================================================= */
 window.SITE = {
   "name": "Phu Nguyen",
-  "email": "hello@phunguyen.design",
+  "email": "starklab21@gmail.com",
   "city": "HCMC",
   "timezone": "Asia/Ho_Chi_Minh",
   "showreel": "",
