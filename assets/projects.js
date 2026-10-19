@@ -192,27 +192,28 @@ window.PROJECTS = [
     "recognition": [],
     "url": "",
     "desc": "A copper-and-bedrock identity for a mining company: the mark, the guidelines and a 15-second brand motion.",
-    "about": "A full identity for Atlantic Minerals Inc. The angular mark is redrawn as four layers (bedrock, vein, ore and the horizon line) that fold into an arrow pointing forward, set on a 22° grid. Around it sits a dark, material system: Obsidian and Copper as lead colours, Manrope for the wordmark and text with Cormorant Garamond as an accent, plus strata lines, crystal facets and ore textures as graphic language. The guidelines cover logo versions, clear space, colour, type, stationery, digital, applications and a four-poster campaign (Explore, Extract, Refine, Endure). The brand motion is cut to the beat and walks through the whole system in 15 seconds.",
+    "about": "A full identity system for Atlantic Minerals Inc., built around the client's mark: three copper cuts (a blade of bedrock, the ore at its core and a horizon line) that fold into an arrow pointing forward, lit like polished metal. Around it sits a warm, material system: Coconut, Philippine Bronze, Copper and Bisque on black and white, Manrope for text, strata lines, crystal facets and ore textures as graphic language. The guidelines cover logo versions, construction, clear space, colour, type, stationery and letterheads, digital, applications and a four-poster campaign (Explore, Extract, Refine, Endure). The brand motion walks through the whole system in 15 seconds, cut to the beat.",
     "palette": [
-      "#0E0E10",
-      "#B8693F",
-      "#EFEAE3"
+      "#0A0A0A",
+      "#A25335",
+      "#FCE0C6"
     ],
     "image": "images/atlantic-minerals/cover.webp",
     "gallery": [
       "images/atlantic-minerals/showreel.mp4",
-      "images/atlantic-minerals/guide-02.webp",
-      "images/atlantic-minerals/guide-03.webp",
-      "images/atlantic-minerals/guide-04.webp",
-      "images/atlantic-minerals/guide-05.webp",
-      "images/atlantic-minerals/guide-07.webp",
-      "images/atlantic-minerals/guide-08.webp",
-      "images/atlantic-minerals/guide-09.webp",
-      "images/atlantic-minerals/guide-11.webp",
-      "images/atlantic-minerals/guide-12.webp",
-      "images/atlantic-minerals/guide-13.webp",
-      "images/atlantic-minerals/guide-14.webp",
-      "images/atlantic-minerals/guide-15.webp"
+      "images/atlantic-minerals/page-02.webp",
+      "images/atlantic-minerals/page-03.webp",
+      "images/atlantic-minerals/page-04.webp",
+      "images/atlantic-minerals/page-05.webp",
+      "images/atlantic-minerals/page-07.webp",
+      "images/atlantic-minerals/page-08.webp",
+      "images/atlantic-minerals/page-09.webp",
+      "images/atlantic-minerals/page-11.webp",
+      "images/atlantic-minerals/page-12.webp",
+      "images/atlantic-minerals/page-13.webp",
+      "images/atlantic-minerals/page-14.webp",
+      "images/atlantic-minerals/page-15.webp",
+      "images/atlantic-minerals/page-16.webp"
     ]
   },
   {
