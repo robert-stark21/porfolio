@@ -267,11 +267,21 @@
   const navOf = key => NAV_INDEX[key] ?? (key.startsWith("joyous") ? NAV_INDEX.joyous : 0);
 
   /* ---------------- home UI ---------------- */
-  $("#countTot").textContent = "/" + pad(PROJECTS.length);
+  // work filter: each tab matches a project's discipline (and category, so "Brand identity & motion" counts as motion too)
+  const FILTERS = [
+    { key: "all", label: "All work", test: () => true },
+    { key: "uiux", label: "UI/UX", test: p => /\b(ux|ui)\b/i.test(p.discipline) },
+    { key: "graphic", label: "Graphic Design", test: p => /graphic|brand/i.test(p.discipline) },
+    { key: "branding", label: "Branding", test: p => /brand|identity/i.test(p.discipline + " " + p.category) },
+    { key: "motion", label: "Motion Graphic", test: p => /motion/i.test(p.discipline + " " + p.category) },
+    { key: "film", label: "Film Marketing", test: p => /film/i.test(p.discipline) },
+  ];
+  let LIST = PROJECTS, filterKey = "all";
   const metaF = Object.fromEntries($$("[data-f]").map(el => [el.dataset.f, el]));
   let homeIdx = 0;
   function onCenter(i) {
-    const p = PROJECTS[i];
+    const p = LIST[i];
+    if (!p) return;
     homeIdx = i;
     blurSwap($("#countCur"), pad(i + 1), { blur: 10 });
     Object.entries(metaF).forEach(([k, el]) => blurSwap(el, esc(p[k] || "—"), { blur: k === "title" ? 12 : 8 }));
@@ -279,17 +289,52 @@
     $("#openProject").href = "#" + p.slug;
     sfx.scroll();
   }
-  $("#openProject").addEventListener("click", e => { e.preventDefault(); go(PROJECTS[homeIdx].slug); });
+  $("#openProject").addEventListener("click", e => { e.preventDefault(); go(LIST[homeIdx].slug); });
 
   // the carousel fills whatever space the info block leaves
   const info = $("#info");
-  new ResizeObserver(() => { if (info.offsetHeight) document.documentElement.style.setProperty("--info-h", info.offsetHeight + 16 + "px"); }).observe(info);
+  // on phones the filter row sits above the info block, so the carousel makes room for it too
+  const mobileQ = matchMedia("(max-width: 760px)");
+  const fitInfo = () => { if (info.offsetHeight) document.documentElement.style.setProperty("--info-h", info.offsetHeight + 16 + (mobileQ.matches ? ($("#filters").offsetHeight || 0) + 10 : 0) + "px"); };
+  new ResizeObserver(fitInfo).observe(info);
+  mobileQ.addEventListener("change", fitInfo);
 
   /* ---------------- carousel ---------------- */
-  const stack = window.Carousel.create({
-    el: $("#stage"), items: PROJECTS,
-    onCenter, onOpen: i => go(PROJECTS[i].slug),
+  const makeStack = () => window.Carousel.create({
+    el: $("#stage"), items: LIST,
+    onCenter, onOpen: i => go(LIST[i].slug),
   });
+  let stack = makeStack();
+
+  /* ---------------- filter tabs ---------------- */
+  const filtersEl = $("#filters");
+  const shown = FILTERS.map(f => ({ ...f, n: PROJECTS.filter(f.test).length })).filter(f => f.key === "all" || f.n);
+  filtersEl.innerHTML = shown.map(f => `<button type="button" class="filters__btn${f.key === filterKey ? " is-on" : ""}" data-filter="${f.key}" aria-pressed="${f.key === filterKey}" data-sfx><span>${esc(f.label)}</span><sup>${pad(f.n)}</sup></button>`).join("");
+  $("#countTot").textContent = "/" + pad(LIST.length);
+  // rebuild the carousel on a fresh stage with only the matching projects
+  function setFilter(key, { instant = false, keep } = {}) {
+    if (key === filterKey) return;
+    const f = FILTERS.find(x => x.key === key) || FILTERS[0];
+    filterKey = f.key; LIST = PROJECTS.filter(f.test);
+    $$(".filters__btn", filtersEl).forEach(b => { const on = b.dataset.filter === filterKey; b.classList.toggle("is-on", on); b.setAttribute("aria-pressed", on); });
+    const swap = () => {
+      stack.destroy && stack.destroy();
+      const old = $("#stage"), fresh = document.createElement("div");
+      fresh.className = "stage"; fresh.id = "stage"; fresh.tabIndex = 0; fresh.style.visibility = old.style.visibility;
+      old.replaceWith(fresh);
+      stack = makeStack();
+      if (!$("#page").hidden) stack.pause(true);
+      const i = keep ? Math.max(0, LIST.indexOf(keep)) : 0;
+      if (i) stack.go(i, true);
+      $("#countTot").textContent = "/" + pad(LIST.length);
+      onCenter(i);
+      if (!instant) { stack.intro(); g.fromTo("#stage", { opacity: 0 }, { opacity: 1, duration: 0.5, ease: "power2.out" }); }
+      else stack.intro();
+    };
+    if (instant || reduce) swap();
+    else g.to("#stage", { opacity: 0, filter: "blur(8px)", duration: 0.25, ease: "power2.in", onComplete: () => { $("#stage").style.filter = ""; swap(); } });
+  }
+  filtersEl.addEventListener("click", e => { const b = e.target.closest("[data-filter]"); if (b) setFilter(b.dataset.filter); });
 
   /* ---------------- pages ---------------- */
   const page = $("#page");
@@ -504,7 +549,9 @@
     page.focus({ preventScroll: true });
     if (r.project) {
       // keep the stack centred on the project you opened
-      stack.go(PROJECTS.indexOf(r.project));
+      // opening a project outside the current filter shows all work again
+      if (!LIST.includes(r.project)) setFilter("all", { instant: true, keep: r.project });
+      stack.go(LIST.indexOf(r.project));
       const shots = $$(".shot", page), minis = $$("[data-shot]", page);
       minis.forEach(b => b.addEventListener("click", () => shots[+b.dataset.shot].scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "center" })));
       // highlight the thumbnail of the image nearest the middle of the screen
@@ -738,7 +785,7 @@
     document.body.classList.remove("is-loading");
     if (reduce) return;
     g.fromTo([".count", ".info__main > *", ".meta > div", ".info__foot", ".chrome > *"], { opacity: 0, filter: "blur(10px)", y: 12 },
-      { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, delay: 0.35, stagger: 0.04, ease: "power2.out" });
+      { opacity: 1, filter: "blur(0px)", y: 0, duration: 0.8, delay: 0.35, stagger: 0.04, ease: "power2.out", clearProps: "filter,transform" });
   }
 
   // flying Phu (images/mascot/flying.png): every upward boost opens the curtain one step

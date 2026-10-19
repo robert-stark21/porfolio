@@ -198,7 +198,7 @@ window.PROJECTS = [
       "#A25335",
       "#FCE0C6"
     ],
-    "image": "images/atlantic-minerals-cover-01.webp",
+    "image": "images/atlantic-minerals-cover-02.webp",
     "gallery": [
       "images/atlantic-minerals/showreel.mp4",
       "images/atlantic-minerals/page-02.webp",

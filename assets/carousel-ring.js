@@ -311,6 +311,7 @@
           st.holdUntil = performance.now() + 2800; render(performance.now());
         } else focusIndex(i);
       },
+      destroy() { this.pause(true); },
       intro() {
         if (reduce) return Promise.resolve();
         st.intro = performance.now(); st.last = 0; wake();

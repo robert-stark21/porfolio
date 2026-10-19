@@ -6,7 +6,7 @@
    "Flex Carousel" (liquid preset). Falls back to the ring
    carousel (carousel-ring.js) when WebGL2 is missing.
    window.Carousel.create({ el, items, onCenter, onOpen })
-     -> { center, pause(bool), go(i, instant), intro() }
+     -> { center, pause(bool), go(i, instant), intro(), destroy() }
    ========================================================= */
 (() => {
   /* ---- tweakables ---- */
@@ -574,6 +574,11 @@ void main() {
         const m = metrics();
         goTo(m, i);
         if (instant || paused) { pos = goal; vel = 0; }
+      },
+      // stop for good and free the GPU (used when the filter rebuilds the carousel)
+      destroy() {
+        this.pause(true);
+        const x = gl.getExtension("WEBGL_lose_context"); x && x.loseContext();
       },
       intro() {
         introState.t = reduce ? 1 : 0; introState.running = !reduce; introState.done = reduce;

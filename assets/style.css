@@ -160,7 +160,19 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 }
 .info p { margin: 0; }
 
-.count { pointer-events: none; }
+.count { pointer-events: none; position: relative; }
+/* work filter: a quiet list over the counter, grows upward so the carousel keeps its height */
+.filters { position: absolute; left: calc(var(--c2) - var(--m)); bottom: calc(100% + 18px); display: grid; justify-items: start; gap: 5px; pointer-events: auto; }
+.filters__btn {
+  appearance: none; background: none; border: 0; padding: 0; margin: 0; cursor: pointer;
+  font: inherit; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; transition: color .3s;
+}
+.filters__btn::before { content: ""; width: 6px; height: 6px; background: currentColor; transform: scale(0); transition: transform .35s var(--ease-out); }
+.filters__btn sup { font: 400 .8em/1 var(--f-mono); opacity: .7; top: -.35em; }
+.filters__btn:hover, .filters__btn.is-on { color: var(--ink); }
+body.is-dark .filters__btn:hover, body.is-dark .filters__btn.is-on { color: #ececec; }
+.filters__btn.is-on::before { transform: scale(1); }
+.filters__btn:focus-visible { outline: 1px solid currentColor; outline-offset: 3px; }
 .count__hint { margin: 0 0 6px !important; display: grid; grid-template-columns: calc(var(--c2) - var(--m)) auto; color: var(--muted); }
 .count__num { font: 400 56px/1 var(--f-mono); letter-spacing: .02em; font-variant-numeric: tabular-nums; display: flex; align-items: flex-start; }
 .count__tot { font-size: 18px; margin-left: 6px; margin-top: 6px; color: var(--muted); }
@@ -514,9 +526,12 @@ body.is-dark .page { background: var(--night); color: #ececec; --muted: #8a8a8a;
   .count { grid-row: 2; }
   .count__hint { display: none; }
   .count__num { font-size: 36px; }
+  .count { position: static; }
+  .filters { position: absolute; left: 0; right: 0; bottom: 100%; margin-bottom: 10px; padding: 0 var(--m); display: flex; gap: 18px; overflow-x: auto; scrollbar-width: none; white-space: nowrap; }
+  .filters::-webkit-scrollbar { display: none; }
   .info__side { grid-row: 2; width: auto; align-self: end; }
   .meta { display: none; }
-  .hint-mobile { display: block; position: fixed; left: var(--m); right: var(--m); top: 70px; margin: 0; color: var(--muted); }
+  .hint-mobile { display: none; }
   .pg { padding-top: 96px; }
   .split { grid-template-columns: 1fr; }
   .pg--photo { padding-top: 84px; }
