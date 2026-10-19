@@ -8,7 +8,7 @@
    ========================================================= */
 (() => {
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = !!window.CALM;
   const THREE_SRC = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
   const LOTTIE_SRC = "https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js";
   const KINDS = ["Game", "3D object", "Space", "Toy"];

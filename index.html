@@ -166,7 +166,13 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <!-- libraries (pinned) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="assets/vendor/gsap.min.js"></script>
+<script>
+  /* Effects always play, even when the computer has "reduce animations" turned on.
+     Add ?calm to the address to see the site without motion. */
+  window.CALM = /[?&]calm\b/.test(location.search);
+  if (window.CALM) document.documentElement.classList.add("calm");
+</script>
 <!-- site -->
 <script src="assets/projects.js"></script>
 <script src="assets/carousel-ring.js"></script>

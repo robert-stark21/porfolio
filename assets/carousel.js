@@ -177,7 +177,7 @@ void main() {
       return window.RingCarousel.create(opts);
     }
     const { el, items, onCenter, onOpen } = opts;
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = !!window.CALM;
     let card, lens, quad, tri;
     try {
       card = program(gl, CARD_VS, CARD_FS);

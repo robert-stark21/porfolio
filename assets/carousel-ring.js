@@ -40,7 +40,7 @@
   const rotY = (p, d) => { const r = d * TO_RAD, c = Math.cos(r), s = Math.sin(r); return [p[0] * c + p[2] * s, p[1], -p[0] * s + p[2] * c]; };
 
   function create({ el, items, onCenter, onOpen }) {
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const reduce = !!window.CALM;
     const count = items.length;
     const step = 360 / count;
     const cardW = CFG.cardWidth, cardH = cardW / CFG.aspect;

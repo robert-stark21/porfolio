@@ -7,7 +7,7 @@
 (() => {
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const pad = n => String(n).padStart(2, "0");
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = !!window.CALM;
 
   const MORPH = { duration: 1.1, intensity: 0.55, scale: 2.4, aberration: 0.35, drift: 0.4, autoplay: true, delay: 5 };
   const WALL = { tile: 260, gap: 18, tilt: 22, turn: -14, speed: 42, variance: 0.45, parallax: 0.6, lift: 64, dim: 0.55 };

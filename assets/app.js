@@ -11,7 +11,7 @@
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
   const pad = n => String(n).padStart(2, "0");
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const reduce = !!window.CALM;
 
   // cubic-bezier easing for GSAP (no plugin needed)
   function bez(x1, y1, x2, y2) {
