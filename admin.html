@@ -259,7 +259,8 @@ a.btn { color: inherit; text-decoration: none; }
   const fsOK = "showDirectoryPicker" in window;
 
   /* ---------------- server API (server.js or api/index.php) ---------------- */
-  const server = { on: false, kind: "" };
+  // on Vercel: uploads wait as git blobs until the next save commits them (base = content.json version loaded)
+  const server = { on: false, kind: "", uploads: [], base: null };
   async function api(r, { q = "", json, body } = {}) {
     const post = json !== undefined || body !== undefined;
     const res = await fetch(`api/?r=${r}${q}`, {
@@ -281,6 +282,7 @@ a.btn { color: inherit; text-decoration: none; }
       $("#loginTitle").textContent = setup ? "Set a password" : "Sign in";
       $("#loginText").innerHTML = setup
         ? (st.canSetup ? "First time here: choose a dashboard password (8+ characters). It is saved, hashed, in <code>data/auth.php</code>; upload that folder with the site and the same password works on your host."
+                       : st.server === "vercel" ? "Saving online is not set up yet: add ADMIN_PASSWORD and GITHUB_TOKEN in Vercel (Settings, Environment Variables), then redeploy."
                        : "No password yet. Run <code>start.bat</code> on your computer to set one, then upload the <code>data</code> folder to the host.")
         : "Enter the dashboard password.";
       $("#loginAgain").hidden = !setup; $("#loginBtn").textContent = setup ? "Save password" : "Sign in";
@@ -298,12 +300,16 @@ a.btn { color: inherit; text-decoration: none; }
   // the database, unless projects.js was edited by hand after the last save
   async function loadFromServer() {
     const c = await api("content");
+    server.base = c.sha || null;
     if (c.content && !(c.projectsMtime > c.contentMtime + 5)) return normalise(c.content);
     return parseProjects(await (await fetch("assets/projects.js", { cache: "no-store" })).text());
   }
   const normalise = c => ({ SITE: c.SITE || {}, PROJECTS: c.PROJECTS || [], PLAYGROUND: c.PLAYGROUND || [], PHOTOS: c.PHOTOS || [], JOYOUS: c.JOYOUS || null, ABOUT: c.ABOUT || null });
   async function upload(blob, base, ext) {
-    const r = await api("upload", { q: `&base=${encodeURIComponent(base)}&ext=${encodeURIComponent(ext)}`, body: blob });
+    if (server.kind === "vercel" && blob.size > 4.3 * 1024 * 1024) throw new Error("file is over 4MB, too big for the online dashboard. Add it with start.bat on your computer");
+    const pending = server.uploads.map(u => u.path).join(",");
+    const r = await api("upload", { q: `&base=${encodeURIComponent(base)}&ext=${encodeURIComponent(ext)}` + (pending ? `&pending=${encodeURIComponent(pending)}` : ""), body: blob });
+    if (r.sha) { server.uploads.push({ path: r.path, sha: r.sha }); setDirty(); }
     return r.path;
   }
 
@@ -967,7 +973,11 @@ a.btn { color: inherit; text-decoration: none; }
     if (badJ) { state.tab = "joyous"; state.sel = ji.indexOf(badJ); render(); toast("Each Joyous item needs a title and its own page address"); return; }
     if (server.on) {
       if (server.old) { toast("Restart start.bat first, then reload the dashboard"); return; }
-      try { await api("save", { json: { content: d } }); setDirty(false); toast("Saved. Reload the site to see it."); }
+      try {
+        const r = await api("save", { json: { content: d, uploads: server.uploads, base: server.base } });
+        if (server.kind === "vercel") { server.uploads = []; server.base = r.sha || server.base; }
+        setDirty(false); toast(server.kind === "vercel" ? "Saved. The live site updates in about a minute." : "Saved. Reload the site to see it.");
+      }
       catch (e) {
         if (e.status === 401) { await signIn(await probeServer() || { hasPassword: true }); return save(); }
         toast("Could not save: " + e.message);
