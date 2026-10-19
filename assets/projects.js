@@ -113,7 +113,7 @@ window.ABOUT = {
 window.PROJECTS = [
   {
     "slug": "ivfmd-hoi-nghi-dau-nam-2026",
-    "title": "IVFMD Hội Nghị Đầu Năm 2026",
+    "title": "IVFMD Annual Conference 2026",
     "category": "Event motion — Gen In Us, Fold Together",
     "discipline": "Motion design",
     "role": "Event visuals · Opener · Award videos",
@@ -148,7 +148,7 @@ window.PROJECTS = [
   },
   {
     "slug": "ivfmd-nu-ho-sinh-2025",
-    "title": "IVFMD Nữ Hộ Sinh 2025",
+    "title": "IVFMD Midwives 2025",
     "category": "Year-in-review film & Elephant Award",
     "discipline": "Motion",
     "role": "Year-in-review film · Award video · Event visuals",
@@ -218,7 +218,7 @@ window.PROJECTS = [
   },
   {
     "slug": "molfix-vu-dieu-ngua-ham",
-    "title": "Molfix Vũ Điệu Ngừa Hăm",
+    "title": "Molfix Baby Dance",
     "category": "Campaign microsite — AI video",
     "discipline": "UX/UI",
     "role": "Front-end development",
@@ -243,8 +243,8 @@ window.PROJECTS = [
   },
   {
     "slug": "ke-hoi-sinh",
-    "title": "Kẻ Hồi Sinh",
-    "category": "Reawakened Man — Korean action",
+    "title": "Reawakened Man",
+    "category": "Kẻ Hồi Sinh — Korean action",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -270,8 +270,8 @@ window.PROJECTS = [
   },
   {
     "slug": "bat-tien",
-    "title": "Bát Tiên! Truy Tìm Lưu Ly Đăng",
-    "category": "All Wishes Come True — Chinese animation",
+    "title": "All Wishes Come True",
+    "category": "Bát Tiên! Truy Tìm Lưu Ly Đăng — Chinese animation",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -300,8 +300,8 @@ window.PROJECTS = [
   },
   {
     "slug": "coi-bao-tu",
-    "title": "Còi Báo Tử",
-    "category": "Whistle — US horror",
+    "title": "Whistle",
+    "category": "Còi Báo Tử — US horror",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -328,8 +328,8 @@ window.PROJECTS = [
   },
   {
     "slug": "diem-mu",
-    "title": "Điểm Mù",
-    "category": "The Eyes — Korean thriller",
+    "title": "The Eyes",
+    "category": "Điểm Mù — Korean thriller",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -360,8 +360,8 @@ window.PROJECTS = [
   },
   {
     "slug": "den-la-sat",
-    "title": "Đền La Sát",
-    "category": "The Shrine — Korean horror",
+    "title": "The Shrine",
+    "category": "Đền La Sát — Korean horror",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -395,8 +395,8 @@ window.PROJECTS = [
   },
   {
     "slug": "lieu-trai",
-    "title": "Liêu Trai: Lan Nhược Tự",
-    "category": "Curious Tales of a Temple — Chinese animation",
+    "title": "Curious Tales of a Temple",
+    "category": "Liêu Trai: Lan Nhược Tự — Chinese animation",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -432,8 +432,8 @@ window.PROJECTS = [
   },
   {
     "slug": "ho-nuot-nguoi",
-    "title": "Ma Da Hàn Quốc: Hồ Nuốt Người",
-    "category": "Salmokji: Whispering Water — Korean horror",
+    "title": "Salmokji: Whispering Water",
+    "category": "Ma Da Hàn Quốc: Hồ Nuốt Người — Korean horror",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -461,8 +461,8 @@ window.PROJECTS = [
   },
   {
     "slug": "phoi-sat",
-    "title": "Phổi Sắt",
-    "category": "Iron Lung — US horror",
+    "title": "Iron Lung",
+    "category": "Phổi Sắt — US horror",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -492,8 +492,8 @@ window.PROJECTS = [
   },
   {
     "slug": "dem-truy-sat",
-    "title": "Đêm Truy Sát",
-    "category": "Protector — action, Milla Jovovich",
+    "title": "Protector",
+    "category": "Đêm Truy Sát — action, Milla Jovovich",
     "discipline": "Film marketing",
     "role": "Key art localisation · Trailer · Social & LED",
     "team": "Lotte Entertainment Vietnam",
@@ -587,341 +587,137 @@ window.PROJECTS = [
       "images/pocari-sweat-dream-projec-season-2-19.webp",
       "images/pocari-sweat-dream-projec-season-2-20.webp"
     ]
-  },
-  {
-    "slug": "pulse-motion",
-    "title": "Pulse Motion",
-    "category": "Health tech — motion system",
-    "discipline": "Motion",
-    "role": "Motion Direction",
-    "team": "Pulse brand team",
-    "launch": "Apr 2026",
-    "recognition": [],
-    "url": "",
-    "desc": "A motion language for a health-tech brand: easing curves, logo animation and UI transitions.",
-    "about": "A motion language for a health-tech brand: easing curves, logo animation and UI transitions. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#1F4D45",
-      "#6BD3B8",
-      "#DDF6EF"
-    ],
-    "image": "images/project-03.svg",
-    "gallery": [
-      "images/project-03.svg",
-      "images/project-06.svg",
-      "images/tall-02.svg",
-      "images/project-07.svg",
-      "images/project-08.svg"
-    ]
-  },
-  {
-    "slug": "atlas-travel",
-    "title": "Atlas Travel",
-    "category": "Travel — website",
-    "discipline": "UX/UI",
-    "role": "Website Design",
-    "team": "Studio name",
-    "launch": "Jan 2026",
-    "recognition": [],
-    "url": "",
-    "desc": "A trip planner that turns scattered bookings into one visual itinerary you can share.",
-    "about": "A trip planner that turns scattered bookings into one visual itinerary you can share. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#3B2350",
-      "#B28DFF",
-      "#EEE6FF"
-    ],
-    "image": "images/project-04.svg",
-    "gallery": [
-      "images/project-04.svg",
-      "images/project-08.svg",
-      "images/tall-01.svg",
-      "images/project-09.svg",
-      "images/project-09.svg"
-    ]
-  },
-  {
-    "slug": "mekong-type-fest",
-    "title": "Mekong Type Fest",
-    "category": "Culture — posters",
-    "discipline": "Graphic",
-    "role": "Art Direction",
-    "team": "Solo",
-    "launch": "Oct 2025",
-    "recognition": [],
-    "url": "",
-    "desc": "Poster series and festival identity drawn from a custom face inspired by river market signs.",
-    "about": "Poster series and festival identity drawn from a custom face inspired by river market signs. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#4A2A2A",
-      "#FF8A7A",
-      "#FFE3DE"
-    ],
-    "image": "images/project-05.svg",
-    "gallery": [
-      "images/project-05.svg",
-      "images/project-10.svg",
-      "images/tall-02.svg",
-      "images/project-11.svg",
-      "images/project-10.svg"
-    ]
-  },
-  {
-    "slug": "noodle-house",
-    "title": "Noodle House",
-    "category": "Entertainment — title sequence",
-    "discipline": "Motion",
-    "role": "Title Sequence",
-    "team": "Director name",
-    "launch": "Jul 2025",
-    "recognition": [],
-    "url": "",
-    "desc": "Opening titles for a food documentary, mixing stop-motion steam with kinetic Vietnamese type.",
-    "about": "Opening titles for a food documentary, mixing stop-motion steam with kinetic Vietnamese type. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#24323F",
-      "#8FB8DE",
-      "#E3EEF8"
-    ],
-    "image": "images/project-06.svg",
-    "gallery": [
-      "images/project-06.svg",
-      "images/project-12.svg",
-      "images/tall-01.svg",
-      "images/project-01.svg",
-      "images/project-11.svg"
-    ]
-  },
-  {
-    "slug": "orbit-dashboard",
-    "title": "Orbit Dashboard",
-    "category": "SaaS — design system",
-    "discipline": "UX/UI",
-    "role": "Design System",
-    "team": "Orbit product",
-    "launch": "Mar 2025",
-    "recognition": [],
-    "url": "",
-    "desc": "A component library and analytics dashboard for a logistics platform used by 40 warehouse teams.",
-    "about": "A component library and analytics dashboard for a logistics platform used by 40 warehouse teams. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#3A3A22",
-      "#D6D16B",
-      "#F6F4D6"
-    ],
-    "image": "images/project-07.svg",
-    "gallery": [
-      "images/project-07.svg",
-      "images/project-02.svg",
-      "images/tall-02.svg",
-      "images/project-03.svg",
-      "images/project-12.svg"
-    ]
-  },
-  {
-    "slug": "lotus-skincare",
-    "title": "Lotus Skincare",
-    "category": "Beauty — packaging",
-    "discipline": "Graphic",
-    "role": "Packaging",
-    "team": "Solo",
-    "launch": "Nov 2024",
-    "recognition": [],
-    "url": "",
-    "desc": "Packaging for a botanical skincare line, printed on recycled stock with a single foil accent.",
-    "about": "Packaging for a botanical skincare line, printed on recycled stock with a single foil accent. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#2A2F45",
-      "#9AA5FF",
-      "#E7EAFF"
-    ],
-    "image": "images/project-08.svg",
-    "gallery": [
-      "images/project-08.svg",
-      "images/project-04.svg",
-      "images/tall-01.svg",
-      "images/project-05.svg",
-      "images/project-01.svg"
-    ]
-  },
-  {
-    "slug": "kite-studio",
-    "title": "Kite Studio",
-    "category": "Agency — logo animation",
-    "discipline": "Motion",
-    "role": "Logo Animation",
-    "team": "Kite",
-    "launch": "Aug 2024",
-    "recognition": [],
-    "url": "",
-    "desc": "A looping logo reveal and social toolkit for an animation studio's rebrand.",
-    "about": "A looping logo reveal and social toolkit for an animation studio's rebrand. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#432B3B",
-      "#F29CC6",
-      "#FCE4F0"
-    ],
-    "image": "images/project-09.svg",
-    "gallery": [
-      "images/project-09.svg",
-      "images/project-06.svg",
-      "images/tall-02.svg",
-      "images/project-07.svg",
-      "images/project-02.svg"
-    ]
-  },
-  {
-    "slug": "hanoi-night-market",
-    "title": "Hanoi Night Market",
-    "category": "Events — poster series",
-    "discipline": "Graphic",
-    "role": "Poster Series",
-    "team": "Solo",
-    "launch": "Feb 2024",
-    "recognition": [],
-    "url": "",
-    "desc": "Twelve risograph posters for a weekend market, one for each stall family.",
-    "about": "Twelve risograph posters for a weekend market, one for each stall family. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#203A2A",
-      "#9FE08A",
-      "#E4F7DD"
-    ],
-    "image": "images/project-10.svg",
-    "gallery": [
-      "images/project-10.svg",
-      "images/project-08.svg",
-      "images/tall-01.svg",
-      "images/project-09.svg",
-      "images/project-03.svg"
-    ]
-  },
-  {
-    "slug": "greenline",
-    "title": "Greenline",
-    "category": "Mobility — app",
-    "discipline": "UX/UI",
-    "role": "App Design",
-    "team": "Greenline",
-    "launch": "Sep 2023",
-    "recognition": [],
-    "url": "",
-    "desc": "An e-scooter rental app redesign that cut the unlock flow from five screens to two.",
-    "about": "An e-scooter rental app redesign that cut the unlock flow from five screens to two. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#33302C",
-      "#E8DCC8",
-      "#FAF6EF"
-    ],
-    "image": "images/project-11.svg",
-    "gallery": [
-      "images/project-11.svg",
-      "images/project-10.svg",
-      "images/tall-02.svg",
-      "images/project-12.svg",
-      "images/project-04.svg"
-    ]
-  },
-  {
-    "slug": "studio-reel-22",
-    "title": "Studio Reel ’22",
-    "category": "Portfolio — reel",
-    "discipline": "Motion",
-    "role": "Edit & Motion",
-    "team": "Solo",
-    "launch": "Dec 2022",
-    "recognition": [],
-    "url": "",
-    "desc": "A two-minute reel cut to an original score, collecting three years of motion work.",
-    "about": "A two-minute reel cut to an original score, collecting three years of motion work. Write two or three sentences here about the brief, your role and the result.",
-    "palette": [
-      "#262B33",
-      "#C3CCD9",
-      "#EEF1F5"
-    ],
-    "image": "images/project-12.svg",
-    "gallery": [
-      "images/project-12.svg",
-      "images/project-11.svg",
-      "images/tall-01.svg",
-      "images/project-01.svg",
-      "images/project-05.svg"
-    ]
   }
 ];
 
 window.PLAYGROUND = [
   {
-    "title": "Type loop 01",
-    "image": "images/play-01.svg"
+    "title": "logo tong hop copy",
+    "image": "images/play-01.webp"
   },
   {
-    "title": "Gradient study",
-    "image": "images/play-02.svg"
+    "title": "1",
+    "image": "images/play-02.webp"
   },
   {
-    "title": "3D bloom",
-    "image": "images/play-03.svg"
+    "title": "2",
+    "image": "images/play-03.webp"
   },
   {
-    "title": "Poster 04",
-    "image": "images/play-04.svg"
+    "title": "4",
+    "image": "images/play-04.webp"
   },
   {
-    "title": "UI micro-motion",
-    "image": "images/play-05.svg"
+    "title": "5",
+    "image": "images/play-05.webp"
   },
   {
-    "title": "Grid experiment",
-    "image": "images/play-06.svg"
+    "title": "6",
+    "image": "images/play-06.webp"
   },
   {
-    "title": "Gradient study 02",
-    "image": "images/play-07.jpg"
+    "title": "33",
+    "image": "images/play-07.webp"
   },
   {
-    "title": "Poster series",
-    "image": "images/play-08.jpg"
+    "title": "booth-01",
+    "image": "images/play-08.webp"
   },
   {
-    "title": "Ring loop",
-    "image": "images/play-09.jpg"
+    "title": "banner1",
+    "image": "images/play-09.webp"
   },
   {
-    "title": "Wave lines",
-    "image": "images/play-10.jpg"
+    "title": "banner2",
+    "image": "images/play-10.webp"
   },
   {
-    "title": "Dot field",
-    "image": "images/play-11.jpg"
+    "title": "card-den-sau",
+    "image": "images/play-11.webp"
   },
   {
-    "title": "Soft spheres",
-    "image": "images/play-12.jpg"
+    "title": "card-den-truoc",
+    "image": "images/play-12.webp"
   },
   {
-    "title": "UI micro-motion 02",
-    "image": "images/play-13.jpg"
+    "title": "ChatGPT Image Sep 24, 2026, 03_19_59 PM",
+    "image": "images/play-13.webp"
   },
   {
-    "title": "Glyph study 07",
-    "image": "images/play-14.jpg"
+    "title": "ChatGPT Image Sep 24, 2026, 04_13_07 PM (1)",
+    "image": "images/play-14.webp"
   },
   {
-    "title": "Block pattern",
-    "image": "images/play-15.jpg"
+    "title": "ChatGPT Image Sep 24, 2026, 04_13_07 PM (2)",
+    "image": "images/play-15.webp"
   },
   {
-    "title": "Neon arcs",
-    "image": "images/play-16.jpg"
+    "title": "post-1",
+    "image": "images/play-16.webp"
   },
   {
-    "title": "Halftone",
-    "image": "images/play-17.jpg"
+    "title": "thu-moi-doc",
+    "image": "images/play-17.webp"
   },
   {
-    "title": "Loop frame",
-    "image": "images/play-18.jpg"
+    "title": "thu-moi-mat-sau-Ducking",
+    "image": "images/play-18.webp"
+  },
+  {
+    "title": "thu-moi-mat-truoc-Ducking",
+    "image": "images/play-19.webp"
+  },
+  {
+    "title": "508x1440",
+    "image": "images/play-24.webp"
+  },
+  {
+    "title": "2880x480",
+    "image": "images/play-27.webp"
+  },
+  {
+    "title": "10-dash-branding-mockup",
+    "image": "images/play-30.webp"
+  },
+  {
+    "title": "11626499",
+    "image": "images/play-31.webp"
+  },
+  {
+    "title": "Large-Screen-Mockup",
+    "image": "images/play-32.webp"
+  },
+  {
+    "title": "badge",
+    "image": "images/play-33.webp"
+  },
+  {
+    "title": "original-0bddb63777e79a998576dbd35a3f312d",
+    "image": "images/play-34.webp"
+  },
+  {
+    "title": "original-d6d95f96a42ce7bff99aa79f15f83490",
+    "image": "images/play-35.webp"
+  },
+  {
+    "title": "original-1a7eb29e452ee582bf95af1435d7e31b",
+    "image": "images/play-36.webp"
+  },
+  {
+    "title": "original-27e006790c2746f96330c13b2137e0b3",
+    "image": "images/play-37.webp"
+  },
+  {
+    "title": "original-648b0691e0d0b82d00b30da31176ca5f",
+    "image": "images/play-38.webp"
+  },
+  {
+    "title": "original-fd015634b95b728a18784a58bd2ec9ec",
+    "image": "images/play-39.webp"
+  },
+  {
+    "title": "original-02b35ee7d0a49d1a6219a25b110d3a48",
+    "image": "images/play-40.webp"
   }
 ];
 
