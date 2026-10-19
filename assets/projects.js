@@ -112,6 +112,314 @@ window.ABOUT = {
 
 window.PROJECTS = [
   {
+    "slug": "ke-hoi-sinh",
+    "title": "Kẻ Hồi Sinh",
+    "category": "Reawakened Man — Korean action",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "13 Nov 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Vietnamese launch campaign for the Korean action film Reawakened Man (Koo Kyo-hwan).",
+    "about": "Vietnamese launch campaign for the Korean action film Reawakened Man (Koo Kyo-hwan). I localised the key art with a hand-brushed Vietnamese title, cut the Vietnamese trailer and built the social posts, leaning on the webtoon roots and Koo Kyo-hwan’s fan base.",
+    "palette": [
+      "#C8102E",
+      "#111111",
+      "#F2F2F2"
+    ],
+    "image": "images/lotte/ke-hoi-sinh/cover.webp",
+    "gallery": [
+      "images/lotte/ke-hoi-sinh/poster-01.webp",
+      "images/lotte/ke-hoi-sinh/trailer-clip.mp4",
+      "images/lotte/ke-hoi-sinh/social-01.webp",
+      "images/lotte/ke-hoi-sinh/social-02.webp",
+      "images/lotte/ke-hoi-sinh/social-03.webp",
+      "images/lotte/ke-hoi-sinh/social-04.webp"
+    ]
+  },
+  {
+    "slug": "bat-tien",
+    "title": "Bát Tiên! Truy Tìm Lưu Ly Đăng",
+    "category": "All Wishes Come True — Chinese animation",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "11 Sep 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Mid-Autumn family release of the Chinese animated hit All Wishes Come True.",
+    "about": "Mid-Autumn family release of the Chinese animated hit All Wishes Come True. I built the gold Vietnamese title and badge system, localised the teaser poster and invitation, cut the Vietnamese trailer, and adapted the art for every cinema LED format.",
+    "palette": [
+      "#E7B33E",
+      "#C8201E",
+      "#2E6F8E"
+    ],
+    "image": "images/lotte/bat-tien/cover.webp",
+    "gallery": [
+      "images/lotte/bat-tien/poster-01.webp",
+      "images/lotte/bat-tien/trailer-clip.mp4",
+      "images/lotte/bat-tien/poster-02.webp",
+      "images/lotte/bat-tien/poster-03.webp",
+      "images/lotte/bat-tien/social-01.webp",
+      "images/lotte/bat-tien/led-01.webp",
+      "images/lotte/bat-tien/led-02.webp",
+      "images/lotte/bat-tien/led-03.webp",
+      "images/lotte/bat-tien/led-04.webp",
+      "images/lotte/bat-tien/led-05.webp"
+    ]
+  },
+  {
+    "slug": "hanh-trinh-bat-hao",
+    "title": "Hành Trình Bất Hảo",
+    "category": "The Journey to Gyeong-ju — Korean comedy",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "04 Sep 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Korean family road-trip comedy.",
+    "about": "Korean family road-trip comedy. I localised the title lockup and the Vietnamese teaser trailer, then adapted the key art across the full set of Lotte Cinema LED and lightbox sizes.",
+    "palette": [
+      "#9ED3D6",
+      "#1F3B2D",
+      "#E64B3C"
+    ],
+    "image": "images/lotte/hanh-trinh-bat-hao/cover.webp",
+    "gallery": [
+      "images/lotte/hanh-trinh-bat-hao/poster-01.webp",
+      "images/lotte/hanh-trinh-bat-hao/trailer-clip.mp4",
+      "images/lotte/hanh-trinh-bat-hao/led-01.webp",
+      "images/lotte/hanh-trinh-bat-hao/led-02.webp",
+      "images/lotte/hanh-trinh-bat-hao/led-03.webp",
+      "images/lotte/hanh-trinh-bat-hao/led-04.webp"
+    ]
+  },
+  {
+    "slug": "coi-bao-tu",
+    "title": "Còi Báo Tử",
+    "category": "Whistle — US horror",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "21 Aug 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Vietnamese campaign for Corin Hardy’s horror film Whistle (IFC / Shudder).",
+    "about": "Vietnamese campaign for Corin Hardy’s horror film Whistle (IFC / Shudder). I localised the teaser and main posters, cut the Vietnamese trailer from the US deliverables and made the social posts that sold the ‘Aztec death whistle’ myth.",
+    "palette": [
+      "#D7261E",
+      "#0B1A2A",
+      "#E8D9C0"
+    ],
+    "image": "images/lotte/coi-bao-tu/cover.webp",
+    "gallery": [
+      "images/lotte/coi-bao-tu/poster-01.webp",
+      "images/lotte/coi-bao-tu/trailer-clip.mp4",
+      "images/lotte/coi-bao-tu/poster-02.webp",
+      "images/lotte/coi-bao-tu/social-01.webp",
+      "images/lotte/coi-bao-tu/social-02.webp",
+      "images/lotte/coi-bao-tu/social-03.webp",
+      "images/lotte/coi-bao-tu/social-04.webp",
+      "images/lotte/coi-bao-tu/led-01.webp"
+    ]
+  },
+  {
+    "slug": "diem-mu",
+    "title": "Điểm Mù",
+    "category": "The Eyes — Korean thriller",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "14 Aug 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Korean thriller starring Shin Min-a.",
+    "about": "Korean thriller starring Shin Min-a. I localised the teaser and main key art, the four character posters and the Vietnamese trailer, plus a social series built around Shin Min-a’s double role.",
+    "palette": [
+      "#B3121B",
+      "#0E1116",
+      "#7FA7B8"
+    ],
+    "image": "images/lotte/diem-mu/cover.webp",
+    "gallery": [
+      "images/lotte/diem-mu/poster-01.webp",
+      "images/lotte/diem-mu/trailer-clip.mp4",
+      "images/lotte/diem-mu/poster-02.webp",
+      "images/lotte/diem-mu/social-01.webp",
+      "images/lotte/diem-mu/social-02.webp",
+      "images/lotte/diem-mu/social-03.webp",
+      "images/lotte/diem-mu/social-04.webp",
+      "images/lotte/diem-mu/social-05.webp",
+      "images/lotte/diem-mu/social-06.webp",
+      "images/lotte/diem-mu/social-07.webp",
+      "images/lotte/diem-mu/social-08.webp"
+    ]
+  },
+  {
+    "slug": "den-la-sat",
+    "title": "Đền La Sát",
+    "category": "The Shrine — Korean horror",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "03 Jul 2026",
+    "recognition": [
+      "Fan screening sold out"
+    ],
+    "url": "",
+    "desc": "K-occult horror starring Kim Jae-joong, his return to cinema after 14 years.",
+    "about": "K-occult horror starring Kim Jae-joong, his return to cinema after 14 years. I localised the poster, cut the Vietnamese trailer and ran a social campaign for the fan screening at Lotte Cinema Gò Vấp and West Lake.",
+    "palette": [
+      "#8E1B1B",
+      "#15161A",
+      "#C9B68A"
+    ],
+    "image": "images/lotte/den-la-sat/cover.webp",
+    "gallery": [
+      "images/lotte/den-la-sat/poster-01.webp",
+      "images/lotte/den-la-sat/trailer-clip.mp4",
+      "images/lotte/den-la-sat/poster-02.webp",
+      "images/lotte/den-la-sat/social-01.webp",
+      "images/lotte/den-la-sat/social-02.webp",
+      "images/lotte/den-la-sat/social-03.webp",
+      "images/lotte/den-la-sat/social-04.webp",
+      "images/lotte/den-la-sat/social-05.webp",
+      "images/lotte/den-la-sat/social-06.webp",
+      "images/lotte/den-la-sat/social-07.webp",
+      "images/lotte/den-la-sat/social-08.webp",
+      "images/lotte/den-la-sat/social-09.webp"
+    ]
+  },
+  {
+    "slug": "lieu-trai",
+    "title": "Liêu Trai: Lan Nhược Tự",
+    "category": "Curious Tales of a Temple — Chinese animation",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "26 Jun 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Light Chaser Animation’s anthology Curious Tales of a Temple.",
+    "about": "Light Chaser Animation’s anthology Curious Tales of a Temple. I designed the brushed Vietnamese title, localised the main, teaser and three character posters, a standee, the Vietnamese trailer, social posts and LED banners.",
+    "palette": [
+      "#C8102E",
+      "#1A6FA8",
+      "#F3D27A"
+    ],
+    "image": "images/lotte/lieu-trai/cover.webp",
+    "gallery": [
+      "images/lotte/lieu-trai/poster-01.webp",
+      "images/lotte/lieu-trai/trailer-clip.mp4",
+      "images/lotte/lieu-trai/poster-02.webp",
+      "images/lotte/lieu-trai/poster-03.webp",
+      "images/lotte/lieu-trai/poster-04.webp",
+      "images/lotte/lieu-trai/poster-05.webp",
+      "images/lotte/lieu-trai/poster-06.webp",
+      "images/lotte/lieu-trai/social-01.webp",
+      "images/lotte/lieu-trai/social-02.webp",
+      "images/lotte/lieu-trai/social-03.webp",
+      "images/lotte/lieu-trai/social-04.webp",
+      "images/lotte/lieu-trai/social-05.webp",
+      "images/lotte/lieu-trai/social-06.webp",
+      "images/lotte/lieu-trai/led-01.webp",
+      "images/lotte/lieu-trai/led-02.webp",
+      "images/lotte/lieu-trai/led-03.webp"
+    ]
+  },
+  {
+    "slug": "ho-nuot-nguoi",
+    "title": "Ma Da Hàn Quốc: Hồ Nuốt Người",
+    "category": "Salmokji: Whispering Water — Korean horror",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "15 May 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Korean horror Salmokji.",
+    "about": "Korean horror Salmokji. I created the dripping-water Vietnamese title, the localised posters, standee and premiere invitation, three Vietnamese trailers and the cinema LED set.",
+    "palette": [
+      "#4FC3E8",
+      "#0A1620",
+      "#C9D6DC"
+    ],
+    "image": "images/lotte/ho-nuot-nguoi/cover.webp",
+    "gallery": [
+      "images/lotte/ho-nuot-nguoi/poster-01.webp",
+      "images/lotte/ho-nuot-nguoi/trailer-clip.mp4",
+      "images/lotte/ho-nuot-nguoi/poster-02.webp",
+      "images/lotte/ho-nuot-nguoi/poster-03.webp",
+      "images/lotte/ho-nuot-nguoi/poster-04.webp",
+      "images/lotte/ho-nuot-nguoi/social-01.webp",
+      "images/lotte/ho-nuot-nguoi/social-02.webp",
+      "images/lotte/ho-nuot-nguoi/led-01.webp",
+      "images/lotte/ho-nuot-nguoi/led-02.webp",
+      "images/lotte/ho-nuot-nguoi/led-03.webp"
+    ]
+  },
+  {
+    "slug": "phoi-sat",
+    "title": "Phổi Sắt",
+    "category": "Iron Lung — US horror",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "08 May 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Markiplier’s Iron Lung, based on the indie horror game.",
+    "about": "Markiplier’s Iron Lung, based on the indie horror game. I localised the main poster, subtitled and finished the Vietnamese trailer and made the social series around the game’s blood ocean and Markiplier’s fans.",
+    "palette": [
+      "#C1121F",
+      "#0B0F14",
+      "#8FB3A8"
+    ],
+    "image": "images/lotte/phoi-sat/cover.webp",
+    "gallery": [
+      "images/lotte/phoi-sat/poster-01.webp",
+      "images/lotte/phoi-sat/trailer-clip.mp4",
+      "images/lotte/phoi-sat/social-01.webp",
+      "images/lotte/phoi-sat/social-02.webp",
+      "images/lotte/phoi-sat/social-03.webp",
+      "images/lotte/phoi-sat/social-04.webp",
+      "images/lotte/phoi-sat/social-05.webp",
+      "images/lotte/phoi-sat/social-06.webp",
+      "images/lotte/phoi-sat/social-07.webp",
+      "images/lotte/phoi-sat/social-08.webp"
+    ]
+  },
+  {
+    "slug": "dem-truy-sat",
+    "title": "Đêm Truy Sát",
+    "category": "Protector — action, Milla Jovovich",
+    "discipline": "Film marketing",
+    "role": "Key art localisation · Trailer · Social & LED",
+    "team": "Lotte Entertainment Vietnam",
+    "launch": "2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Action thriller starring Milla Jovovich.",
+    "about": "Action thriller starring Milla Jovovich. I localised the Vietnamese trailer and subtitles and adapted the key art for every Lotte Cinema LED and lightbox format.",
+    "palette": [
+      "#F28C28",
+      "#1B2227",
+      "#C5CCD0"
+    ],
+    "image": "images/lotte/dem-truy-sat/cover.webp",
+    "gallery": [
+      "images/lotte/dem-truy-sat/poster-01.webp",
+      "images/lotte/dem-truy-sat/trailer-clip.mp4",
+      "images/lotte/dem-truy-sat/led-01.webp",
+      "images/lotte/dem-truy-sat/led-02.webp",
+      "images/lotte/dem-truy-sat/led-03.webp",
+      "images/lotte/dem-truy-sat/led-04.webp",
+      "images/lotte/dem-truy-sat/led-05.webp"
+    ]
+  },
+  {
     "slug": "lumen-banking",
     "title": "Lumen Banking",
     "category": "Fintech — mobile app",

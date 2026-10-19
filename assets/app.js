@@ -12,6 +12,9 @@
   const pad = n => String(n).padStart(2, "0");
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const reduce = !!window.CALM;
+  // project galleries can hold short videos (mp4/webm): they loop muted on the page, with a .jpg of the same name as the still
+  const isVid = src => /\.(mp4|webm|mov)$/i.test(src || "");
+  const vidPoster = src => src.replace(/\.(mp4|webm|mov)$/i, ".jpg");
 
   // cubic-bezier easing for GSAP (no plugin needed)
   function bez(x1, y1, x2, y2) {
@@ -311,12 +314,14 @@
         <p class="proj__scroll" data-in>Scroll</p>
 
         <div class="proj__media" data-media>
-          ${p.gallery.map((src, k) => `<button type="button" class="shot" id="shot-${k}" data-zoom="${k}" aria-label="Enlarge image ${k + 1}"><img src="${src}" alt="${esc(p.title)}, image ${k + 1}" width="1600" height="1000"></button>`).join("")}
+          ${p.gallery.map((src, k) => isVid(src)
+            ? `<button type="button" class="shot shot--video" id="shot-${k}" data-zoom="${k}" aria-label="Play video ${k + 1} with sound"><video src="${src}" poster="${vidPoster(src)}" muted loop playsinline autoplay preload="metadata" width="1280" height="536"></video><span class="shot__play" aria-hidden="true">▶ Play with sound</span></button>`
+            : `<button type="button" class="shot" id="shot-${k}" data-zoom="${k}" aria-label="Enlarge image ${k + 1}"><img src="${src}" alt="${esc(p.title)}, image ${k + 1}" width="1600" height="1000"></button>`).join("")}
         </div>
         <h1 class="proj__title" id="projTitle" data-in><span>${esc(words.slice(0, half).join(" "))}</span>${words.length > 1 ? ` <span>${esc(words.slice(half).join(" "))}</span>` : ""}</h1>
 
         <nav class="proj__mini" data-mini aria-label="Jump to image">
-          ${p.gallery.map((src, k) => `<button type="button" data-shot="${k}" aria-label="Go to image ${k + 1}"><img src="${src}" alt="" width="1600" height="1000"></button>`).join("")}
+          ${p.gallery.map((src, k) => `<button type="button" data-shot="${k}" aria-label="Go to image ${k + 1}"><img src="${isVid(src) ? vidPoster(src) : src}" alt="" width="1600" height="1000"></button>`).join("")}
         </nav>
 
         <a class="next" href="#${next.slug}" data-route="${next.slug}">
@@ -654,7 +659,7 @@
     lbIdx = (i + lbList.length) % lbList.length;
     const it = lbList[lbIdx];
     const put = () => {
-      lbMedia.innerHTML = `<img src="${it.image}" alt="${esc(it.title)}"><figcaption>${esc(it.title)} · ${pad(lbIdx + 1)}/${pad(lbList.length)}</figcaption>`;
+      lbMedia.innerHTML = `${isVid(it.image) ? `<video src="${it.image}" controls autoplay playsinline></video>` : `<img src="${it.image}" alt="${esc(it.title)}">`}<figcaption>${esc(it.title)} · ${pad(lbIdx + 1)}/${pad(lbList.length)}</figcaption>`;
       if (fly && !reduce) // project images arrive like a card thrown onto the table
         g.fromTo(lbMedia, { opacity: 1, filter: "blur(0px)", scale: 1, y: innerHeight * 1.2, rotation: -38 }, { y: 0, rotation: 0, duration: 1, ease: "power4.out" });
       else

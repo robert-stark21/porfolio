@@ -440,7 +440,8 @@ a.btn { color: inherit; text-decoration: none; }
     return path;
   }
   const img = (path, cls = "", alt = "") => path
-    ? `<img class="${cls}" data-path="${esc(path)}" src="${esc(src(path))}" alt="${esc(alt)}">`
+    ? /\.(mp4|webm|mov)$/i.test(path) ? `<video class="${cls}" data-path="${esc(path)}" src="${esc(src(path))}" muted playsinline preload="metadata" style="width:100%;object-fit:cover"></video>`
+    : `<img class="${cls}" data-path="${esc(path)}" src="${esc(src(path))}" alt="${esc(alt)}">`
     : `<span class="${cls} noimg" aria-hidden="true"></span>`;
   function pick(multi) {
     return new Promise(res => {

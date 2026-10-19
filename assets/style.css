@@ -217,6 +217,10 @@ body.is-dark .info__open:hover, body.is-dark .reel:hover { color: var(--accent);
 .proj__media { width: 45vw; margin-left: 27.5vw; padding-top: 31vh; display: grid; gap: 84px; }
 .shot { display: block; width: 100%; cursor: zoom-in; }
 .shot img { width: 100%; background: #dcdcd9; }
+.shot--video { position: relative; }
+.shot--video video { display: block; width: 100%; height: auto; background: #111; }
+.shot__play { position: absolute; left: 16px; bottom: 16px; padding: 7px 12px; background: var(--paper); color: var(--ink, #111); font-size: 12px; letter-spacing: .02em; pointer-events: none; }
+#lbMedia video { max-width: min(92vw, 1600px); max-height: 80vh; display: block; }
 
 .proj__title {
   position: absolute; z-index: 3; pointer-events: none; margin: 0;
