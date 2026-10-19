@@ -236,6 +236,46 @@
       ]
     },
     {
+      "slug": "labio",
+      "title": "Labio",
+      "category": "Brand identity & motion",
+      "discipline": "Branding, Motion",
+      "role": "Brand identity · Guidelines · Motion",
+      "team": "Labio JSC",
+      "launch": "Oct 2026",
+      "recognition": [],
+      "url": "https://labioivftech.com",
+      "desc": "A clinical-but-warm identity for an IVF technology company: the guidelines, the applications and a 15-second brand motion.",
+      "about": "A full identity system for Labio, a Vietnamese company that maintains IVF lab equipment, builds software for IVF centres, designs labs and supports research. It is built on the client's final logo, where the \"o\" of Labio becomes a single cell held by a gear and a caring arc: engineering and care in one mark. Around it sits a calm, lab-bright system: Labio Navy and Cyan with a Teal descriptor colour, Outfit and Be Vietnam Pro for type, soft frames, orbit lines and cell dots as graphic language, and bright, human lab photography. The guidelines cover the symbol, construction, logo versions, clear space, misuse, colour, type, graphic language and photography, then the brand in use: stationery, the engineer's kit in the lab (ID badge, service tags, stickers), the patient app and lab dashboard, brochure, social and reception signage. The brand motion walks through the whole system in 15 seconds, cut to the beat.",
+      "palette": [
+        "#1E3160",
+        "#2ACBD8",
+        "#E6F8FA"
+      ],
+      "image": "images/labio/cover.webp",
+      "gallery": [
+        "images/labio/showreel.mp4",
+        "images/labio/mockup-stationery.webp",
+        "images/labio/page-02.webp",
+        "images/labio/page-03.webp",
+        "images/labio/page-04.webp",
+        "images/labio/page-05.webp",
+        "images/labio/page-06.webp",
+        "images/labio/page-07.webp",
+        "images/labio/page-08.webp",
+        "images/labio/page-09.webp",
+        "images/labio/page-10.webp",
+        "images/labio/page-11.webp",
+        "images/labio/page-12.webp",
+        "images/labio/mockup-lab.webp",
+        "images/labio/mockup-digital.webp",
+        "images/labio/mockup-brochure.webp",
+        "images/labio/mockup-social.webp",
+        "images/labio/mockup-signage.webp",
+        "images/labio/page-16.webp"
+      ]
+    },
+    {
       "slug": "ke-hoi-sinh",
       "title": "Reawakened Man",
       "category": "Kẻ Hồi Sinh — Korean action",
