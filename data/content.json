@@ -211,6 +211,31 @@
       ]
     },
     {
+      "slug": "molfix-vu-dieu-ngua-ham",
+      "title": "Molfix Vũ Điệu Ngừa Hăm",
+      "category": "Campaign microsite — AI video",
+      "discipline": "UX/UI",
+      "role": "Front-end development",
+      "team": "Molfix Vietnam",
+      "launch": "2026",
+      "recognition": [],
+      "url": "https://molfix-vudieunguaham.vn/",
+      "desc": "A playful campaign microsite where parents upload one photo of their baby and Kling AI turns it into a short dancing video to share.",
+      "about": "Molfix's campaign site turns a baby photo into a cheerful AI video in three steps: upload, generate, share a link. I built the front end: the sticker-style hero, the animated how-it-works path, the family video wall, Google sign-in, and a responsive layout that keeps the bubbly, hand-drawn look on phones, where most parents arrive.",
+      "palette": [
+        "#0B6FBE",
+        "#E91E8C",
+        "#BFE4FA"
+      ],
+      "image": "images/molfix/cover.webp",
+      "gallery": [
+        "images/molfix/01-hero.webp",
+        "images/molfix/02-mobile.webp",
+        "images/molfix/03-full-page.webp",
+        "images/molfix/04-how-it-works.webp"
+      ]
+    },
+    {
       "slug": "ke-hoi-sinh",
       "title": "Kẻ Hồi Sinh",
       "category": "Reawakened Man — Korean action",
