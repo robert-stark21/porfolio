@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Portfolio Dashboard</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..500&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap">
+<style>
+/* Layout: three panes. Project list on the left, the editor in the middle,
+   a live card preview on the right. Same paper/ink/red as the site. */
+:root {
+  --bg: #ececec; --panel: #f6f6f4; --ink: #1c1c1c; --muted: #77776f; --line: #d7d7d2;
+  --accent: #ff4b3e; --ok: #1f8a4c; --warn: #b26b00;
+  --f-ui: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+  --f-display: "Bricolage Grotesque", "Arial Narrow", sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 400 13px/1.45 var(--f-ui); }
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.top {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 12px 20px; background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { font: 500 20px/1 var(--f-display); font-stretch: 80%; text-transform: uppercase; letter-spacing: -.01em; margin: 0; }
+.brand small { font: 400 11px var(--f-mono); color: var(--muted); text-transform: none; margin-left: 8px; letter-spacing: 0; }
+.status { font: 400 11px/1.3 var(--f-mono); color: var(--muted); margin: 0 auto 0 0; display: flex; align-items: center; gap: 8px; min-width: 0; }
+.status i { width: 8px; height: 8px; border-radius: 50%; background: var(--warn); flex: none; }
+.status.is-linked i { background: var(--ok); }
+.status.is-dirty i { background: var(--accent); }
+.noimg { display: block; background: repeating-linear-gradient(45deg, #ddddd8 0 6px, #e6e6e2 6px 12px); aspect-ratio: 4 / 3; width: 100%; }
+.item__thumb.noimg { width: 44px; height: 33px; }
+a.btn { color: inherit; text-decoration: none; }
+.btn { border: 1px solid var(--ink); background: transparent; padding: 7px 12px; border-radius: 99px; white-space: nowrap; }
+.btn:hover { background: var(--ink); color: var(--bg); }
+.btn--solid { background: var(--ink); color: var(--bg); }
+.btn--solid:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn--ghost { border-color: var(--line); }
+.btn--danger { border-color: var(--accent); color: var(--accent); }
+.btn--danger:hover { background: var(--accent); color: #fff; }
+.btn:disabled { opacity: .4; pointer-events: none; }
+
+.login { position: fixed; inset: 0; z-index: 40; display: grid; place-items: center; background: var(--bg); padding: 20px; }
+.login form { width: min(360px, 100%); display: grid; gap: 14px; }
+.login h2 { margin: 0; font: 400 32px/1 var(--f-display, inherit); text-transform: uppercase; }
+.login p { margin: 0; color: var(--muted); font-size: 12px; }
+.login .err { color: var(--accent); }
+.note { margin: 12px 20px 0; padding: 10px 12px; background: #fff3d6; border: 1px solid #f0d699; font-size: 12px; }
+.note code { font-family: var(--f-mono); font-size: 11px; }
+
+.app { display: grid; grid-template-columns: 280px minmax(0, 1fr) 320px; gap: 0; min-height: calc(100% - 60px); }
+.pane { padding: 16px 20px 40px; min-width: 0; }
+.pane + .pane { border-left: 1px solid var(--line); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 14px; }
+.tab { border: 1px solid var(--line); background: transparent; padding: 5px 10px; border-radius: 99px; font-size: 12px; }
+.tab.is-on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+.list { list-style: none; margin: 0 0 12px; padding: 0; display: grid; gap: 4px; }
+.item {
+  display: grid; grid-template-columns: 18px 44px minmax(0, 1fr); gap: 10px; align-items: center;
+  padding: 6px 8px; border: 1px solid transparent; border-radius: 6px; background: transparent; cursor: pointer;
+}
+.item:hover { background: var(--panel); }
+.item.is-on { background: #fff; border-color: var(--line); }
+.item.is-drop { border-color: var(--accent); border-style: dashed; }
+.item__grip { color: var(--muted); cursor: grab; font-size: 12px; text-align: center; }
+.item__thumb { width: 44px; height: 33px; object-fit: cover; background: var(--line); border-radius: 2px; }
+.item__t { display: block; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.item__s { display: block; color: var(--muted); font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.count { font: 400 11px var(--f-mono); color: var(--muted); margin: 0 0 8px; }
+
+.form { display: grid; gap: 18px; max-width: 760px; }
+.form h2 { margin: 0; font: 500 clamp(28px, 3vw, 40px)/.95 var(--f-display); font-stretch: 78%; text-transform: uppercase; color: var(--accent); text-wrap: balance; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field > span { font: 400 11px var(--f-mono); color: var(--muted); text-transform: uppercase; letter-spacing: .04em; }
+.field > span em { font-style: normal; text-transform: none; letter-spacing: 0; }
+.field input[type="text"], .field input[type="url"], .field input[type="email"], .field select, .field textarea {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff;
+}
+.field textarea { resize: vertical; min-height: 64px; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--ink); outline: none; }
+.err { color: var(--accent); font-size: 11px; }
+.rows { display: grid; gap: 8px; justify-items: start; }
+.rowed { display: grid; grid-template-columns: 24px minmax(0, 1fr) minmax(0, 1.6fr) auto; gap: 8px; align-items: start; width: 100%; }
+.rowed--3 { grid-template-columns: 24px minmax(0, 1.2fr) minmax(0, 1.2fr) minmax(0, .8fr) auto; }
+.rowed__n { font: 400 11px var(--f-mono); color: var(--muted); padding-top: 10px; }
+.rowed input, .rowed textarea { width: 100%; padding: 8px 10px; border: 1px solid var(--line); border-radius: 6px; background: #fff; font: inherit; }
+.rowed textarea { resize: vertical; min-height: 38px; }
+.rowed input:focus, .rowed textarea:focus { border-color: var(--ink); outline: none; }
+.rowed__b { display: flex; gap: 4px; padding-top: 4px; }
+.rowed__b button { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 99px; background: transparent; }
+.rowed__b button:disabled { opacity: .3; }
+.rowed__b button:hover:not(:disabled) { border-color: var(--ink); }
+
+.sect { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 12px; }
+.sect h3 { margin: 0; font: 600 12px var(--f-ui); text-transform: uppercase; letter-spacing: .04em; }
+.sect p.hint { margin: -6px 0 0; color: var(--muted); font-size: 12px; }
+
+.drop {
+  border: 1px dashed #b9b9b2; border-radius: 8px; padding: 16px; text-align: center; color: var(--muted);
+  background: var(--panel); cursor: pointer; transition: border-color .2s, background .2s;
+}
+.drop:hover, .drop.is-over { border-color: var(--accent); background: #fff; color: var(--ink); }
+.cover { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 14px; align-items: start; }
+.cover img { width: 200px; aspect-ratio: 4 / 3; object-fit: cover; background: var(--line); border-radius: 4px; }
+
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.gimg { position: relative; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: #fff; cursor: grab; }
+.gimg.is-drop { outline: 2px dashed var(--accent); }
+.gimg img { width: 100%; height: 90px; object-fit: cover; object-position: top; display: block; background: var(--line); }
+.gimg__bar { display: flex; justify-content: space-between; align-items: center; padding: 4px 6px; font: 400 10px var(--f-mono); color: var(--muted); }
+.gimg__bar button { border: 0; background: none; color: var(--accent); padding: 0 2px; }
+
+.swatches { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.swatches input[type="color"] { width: 44px; height: 32px; padding: 0; border: 1px solid var(--line); border-radius: 6px; background: none; }
+
+.actions { display: flex; flex-wrap: wrap; gap: 8px; border-top: 1px solid var(--line); padding-top: 16px; }
+.confirm { display: inline-flex; gap: 8px; align-items: center; color: var(--accent); }
+
+/* preview pane */
+.prev { position: sticky; top: 76px; display: grid; gap: 14px; }
+.prev__k { font: 400 11px var(--f-mono); color: var(--muted); text-transform: uppercase; margin: 0; }
+.card { background: #fff; border: 1px solid var(--line); padding: 14px; display: grid; gap: 8px; }
+.card img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--line); }
+.cover--wide { grid-template-columns: 1fr; }
+.cover--wide img, .card img.is-wide { width: 100%; aspect-ratio: 6.2 / 1; object-position: 0 50%; }
+.cover img.is-169, .card img.is-169 { aspect-ratio: 16 / 9; }
+.card__cat { color: var(--muted); font-size: 11px; margin: 0; }
+.card__t { margin: 0; font: 500 18px/1 var(--f-display); text-transform: uppercase; }
+.card__d { margin: 0; font-size: 12px; }
+.card__sw { display: flex; gap: 3px; }
+.card__sw i { width: 14px; height: 14px; display: block; }
+.big { margin: 0; font: 500 44px/.86 var(--f-display); font-stretch: 75%; text-transform: uppercase; color: var(--accent); text-wrap: balance; }
+.prev a { color: inherit; }
+
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); translate: -50% 10px; opacity: 0; transition: .25s; background: var(--ink); color: var(--bg); padding: 9px 14px; border-radius: 99px; pointer-events: none; z-index: 30; max-width: calc(100vw - 32px); }
+.toast.is-on { opacity: 1; translate: -50% 0; }
+
+.empty { padding: 40px 0; color: var(--muted); max-width: 46ch; }
+.empty h2 { color: var(--ink); font: 500 32px/.95 var(--f-display); font-stretch: 80%; text-transform: uppercase; margin: 0 0 10px; }
+
+@media (max-width: 1100px) {
+  .app { grid-template-columns: 240px minmax(0, 1fr); }
+  .pane--prev { display: none; }
+}
+@media (max-width: 720px) {
+  .app { grid-template-columns: 1fr; }
+  .pane + .pane { border-left: 0; border-top: 1px solid var(--line); }
+  .grid2, .grid3, .cover { grid-template-columns: 1fr; }
+  .cover img { width: 100%; }
+  .rowed, .rowed--3 { grid-template-columns: minmax(0, 1fr) auto; }
+  .rowed__n { display: none; }
+  .rowed > input, .rowed > textarea { grid-column: 1; }
+  .rowed__b { grid-column: 2; grid-row: 1; }
+  .top { padding: 10px 16px; }
+  .pane { padding-inline: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1 class="brand">Dashboard<small>portfolio content</small></h1>
+  <p class="status" id="status" role="status"><i></i><span id="statusText">Not linked to a folder</span></p>
+  <button class="btn btn--ghost" type="button" id="openBtn">Open portfolio folder</button>
+  <button class="btn btn--ghost" type="button" id="signOut" hidden>Sign out</button>
+  <a class="btn btn--ghost" id="siteBtn" href="index.html" target="_blank" rel="noopener">View site ↗</a>
+  <button class="btn btn--solid" type="button" id="saveBtn" disabled>Save</button>
+</header>
+<p class="note" id="note" hidden></p>
+
+<div class="app">
+  <!-- LIST -->
+  <aside class="pane">
+    <div class="tabs" role="tablist">
+      <button class="tab is-on" type="button" data-tab="projects" role="tab" aria-selected="true">Projects</button>
+      <button class="tab" type="button" data-tab="playground" role="tab" aria-selected="false">Playground</button>
+      <button class="tab" type="button" data-tab="photos" role="tab" aria-selected="false">Photos</button>
+      <button class="tab" type="button" data-tab="joyous" role="tab" aria-selected="false">Joyous</button>
+      <button class="tab" type="button" data-tab="about" role="tab" aria-selected="false">About</button>
+      <button class="tab" type="button" data-tab="site" role="tab" aria-selected="false">Site</button>
+    </div>
+    <p class="count" id="count"></p>
+    <ol class="list" id="list"></ol>
+    <button class="btn" type="button" id="addBtn">+ New project</button>
+  </aside>
+
+  <!-- EDITOR -->
+  <main class="pane" id="editor"></main>
+
+  <!-- PREVIEW -->
+  <aside class="pane pane--prev">
+    <div class="prev" id="prev"></div>
+  </aside>
+</div>
+
+<input type="file" id="filePick" accept="image/*" hidden>
+<input type="file" id="filePickMulti" accept="image/*" multiple hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="login" id="login" hidden>
+  <form id="loginForm" autocomplete="on">
+    <h2 id="loginTitle">Sign in</h2>
+    <p id="loginText">Enter the dashboard password.</p>
+    <label class="field"><span>Password</span><input type="password" name="password" autocomplete="current-password" required minlength="8"></label>
+    <label class="field" id="loginAgain" hidden><span>Password again</span><input type="password" name="again" autocomplete="new-password"></label>
+    <p class="err" id="loginErr" role="alert"></p>
+    <button class="btn btn--solid" type="submit" id="loginBtn">Sign in</button>
+  </form>
+</div>
+
+<script>
+(() => {
+  /* =========================================================
+     DASHBOARD
+     Edits projects, playground, photos, Joyous and site settings.
+     Two ways to save:
+     1. Server (preferred): when the page is served by server.js or a PHP
+        host (api/index.php), it signs in and saves to the project's
+        database (data/content.json), which also rebuilds
+        assets/projects.js. Uploads go straight into images/ and audio/.
+     2. Folder: opened any other way, it uses the browser's folder access
+        (Chrome / Edge) to write into a folder on your computer.
+     ========================================================= */
+  const $ = (s, el = document) => el.querySelector(s);
+  const $$ = (s, el = document) => [...el.querySelectorAll(s)];
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const DISCIPLINES = ["UX/UI", "Graphic", "Motion"];
+  const JOY_KINDS = ["Game", "3D object", "Space", "Toy"];
+  // the experiences built in assets/joyous.js (a new one needs code)
+  const JOY_PLAYS = { flappy: "Phu Flies (tap to fly)", blob: "Chrome Blob (liquid metal ball)", island: "Tiny Island (plant trees)", stack: "Stack (block stacking)", galaxy: "Spiral (galaxy of stars)", ballpit: "Ball Pit (throw the balls)" };
+  const MAX_SIDE = 2400;           // longest side after optimising
+  const WEBP_QUALITY = 0.85;
+
+  const state = {
+    dir: null,                     // FileSystemDirectoryHandle of the portfolio folder
+    data: { SITE: {}, PROJECTS: [], PLAYGROUND: [], PHOTOS: [] },
+    tab: "projects", sel: 0, dirty: false, optimise: true,
+    blobs: new Map(),              // image path -> object URL (for previews)
+    pending: new Map(),            // image path -> Blob waiting to be written (when no folder yet)
+    confirmDelete: false,
+  };
+
+  /* ---------------- helpers ---------------- */
+  const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList.add("is-on"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("is-on"), 2400); };
+  const slugify = s => String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") || "project";
+  const fsOK = "showDirectoryPicker" in window;
+
+  /* ---------------- server API (server.js or api/index.php) ---------------- */
+  const server = { on: false, kind: "" };
+  async function api(r, { q = "", json, body } = {}) {
+    const post = json !== undefined || body !== undefined;
+    const res = await fetch(`api/?r=${r}${q}`, {
+      method: post ? "POST" : "GET", credentials: "same-origin", cache: "no-store",
+      headers: { "X-Admin": "1", ...(json !== undefined ? { "Content-Type": "application/json" } : { "Content-Type": "application/octet-stream" }) },
+      body: json !== undefined ? JSON.stringify(json) : body,
+    });
+    const j = await res.json().catch(() => ({ error: `The server answered ${res.status}` }));
+    if (!res.ok) { const e = new Error(j.error || res.status); e.status = res.status; throw e; }
+    return j;
+  }
+  async function probeServer() {
+    try { const st = await api("status"); return st && st.ok ? st : null; } catch (e) { return null; }
+  }
+  // ask for the password (or to create one on first run) until signed in
+  function signIn(st) {
+    return new Promise(done => {
+      const box = $("#login"), f = $("#loginForm"), setup = !st.hasPassword;
+      $("#loginTitle").textContent = setup ? "Set a password" : "Sign in";
+      $("#loginText").innerHTML = setup
+        ? (st.canSetup ? "First time here: choose a dashboard password (8+ characters). It is saved, hashed, in <code>data/auth.php</code>; upload that folder with the site and the same password works on your host."
+                       : "No password yet. Run <code>start.bat</code> on your computer to set one, then upload the <code>data</code> folder to the host.")
+        : "Enter the dashboard password.";
+      $("#loginAgain").hidden = !setup; $("#loginBtn").textContent = setup ? "Save password" : "Sign in";
+      $("#loginBtn").disabled = setup && !st.canSetup;
+      f.password.autocomplete = setup ? "new-password" : "current-password";
+      box.hidden = false; f.password.focus();
+      f.onsubmit = async e => {
+        e.preventDefault(); $("#loginErr").textContent = "";
+        if (setup && f.password.value !== f.again.value) { $("#loginErr").textContent = "The two passwords are different"; return; }
+        try { await api(setup ? "setup" : "login", { json: { password: f.password.value } }); box.hidden = true; f.reset(); done(); }
+        catch (err) { $("#loginErr").textContent = err.message; }
+      };
+    });
+  }
+  // the database, unless projects.js was edited by hand after the last save
+  async function loadFromServer() {
+    const c = await api("content");
+    if (c.content && !(c.projectsMtime > c.contentMtime + 5)) return normalise(c.content);
+    return parseProjects(await (await fetch("assets/projects.js", { cache: "no-store" })).text());
+  }
+  const normalise = c => ({ SITE: c.SITE || {}, PROJECTS: c.PROJECTS || [], PLAYGROUND: c.PLAYGROUND || [], PHOTOS: c.PHOTOS || [], JOYOUS: c.JOYOUS || null, ABOUT: c.ABOUT || null });
+  async function upload(blob, base, ext) {
+    const r = await api("upload", { q: `&base=${encodeURIComponent(base)}&ext=${encodeURIComponent(ext)}`, body: blob });
+    return r.path;
+  }
+
+  function setDirty(v = true) {
+    state.dirty = v;
+    $("#saveBtn").disabled = !v;
+    $("#status").classList.toggle("is-dirty", v);
+    renderStatus();
+  }
+  function renderStatus() {
+    const st = $("#status");
+    if (server.on) {
+      st.classList.add("is-linked");
+      $("#statusText").textContent = `Project database (data/content.json)` + (state.dirty ? " · unsaved changes" : " · saved");
+      return;
+    }
+    st.classList.toggle("is-linked", !!state.dir);
+    $("#statusText").textContent =
+      (state.dir ? `Folder: ${state.dir.name}` : "Not linked to a folder") + (state.dirty ? " · unsaved changes" : state.dir ? " · saved" : "");
+  }
+  function note(html) { const n = $("#note"); n.innerHTML = html; n.hidden = !html; }
+
+  /* ---------------- parse / serialise projects.js ---------------- */
+  function parseProjects(text) {
+    const win = {};
+    // projects.js only assigns window.SITE / window.PROJECTS / window.PLAYGROUND / window.PHOTOS / window.JOYOUS / window.ABOUT
+    new Function("window", text)(win);
+    return { SITE: win.SITE || {}, PROJECTS: win.PROJECTS || [], PLAYGROUND: win.PLAYGROUND || [], PHOTOS: win.PHOTOS || [], JOYOUS: win.JOYOUS || null, ABOUT: win.ABOUT || null };
+  }
+  function serialise(d) {
+    const head = `/* =========================================================
+   PROJECT DATA (written by admin.html — you can also edit by hand)
+   image:       cover shown on the 3D stack (any ratio, cropped to 4:3)
+   gallery:     images shown on the project page, top to bottom
+   about:       the paragraph on the project page (desc is the short line on home)
+   recognition: list of awards, [] when none
+   url:         "Visit site" link, "" to hide it
+   palette:     three swatch colours shown next to the active project
+   PHOTOS:      the Photo page; featured: true (up to 10) also plays in the top banner
+   JOYOUS:      the Joyous page: channel name, banner and items; play picks the experience built in assets/joyous.js
+   ABOUT:       the About page: title lines, intro, skills, experience, portrait, process & approach
+   ========================================================= */\n`;
+    const j = v => JSON.stringify(v, null, 2);
+    return `${head}window.SITE = ${j(d.SITE)};\n\nwindow.PROJECTS = ${j(d.PROJECTS)};\n\nwindow.PLAYGROUND = ${j(d.PLAYGROUND)};\n\nwindow.PHOTOS = ${j(d.PHOTOS || [])};\n${d.JOYOUS ? `\nwindow.JOYOUS = ${j(d.JOYOUS)};\n` : ""}${d.ABOUT ? `\nwindow.ABOUT = ${j(d.ABOUT)};\n` : ""}`;
+  }
+
+  /* ---------------- folder access ---------------- */
+  const IDB = {
+    db() { return new Promise((res, rej) => { const r = indexedDB.open("portfolio-admin", 1); r.onupgradeneeded = () => r.result.createObjectStore("kv"); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); }); },
+    async get(k) { try { const db = await this.db(); return await new Promise(res => { const q = db.transaction("kv").objectStore("kv").get(k); q.onsuccess = () => res(q.result); q.onerror = () => res(null); }); } catch (e) { return null; } },
+    async set(k, v) { try { const db = await this.db(); db.transaction("kv", "readwrite").objectStore("kv").put(v, k); } catch (e) {} },
+  };
+  async function getDirPath(path, create) {
+    const parts = path.split("/").filter(Boolean); let d = state.dir;
+    for (const p of parts) d = await d.getDirectoryHandle(p, { create });
+    return d;
+  }
+  async function readFile(path) {
+    const parts = path.split("/"); const name = parts.pop();
+    const d = await getDirPath(parts.join("/"), false);
+    return (await d.getFileHandle(name)).getFile();
+  }
+  async function writeFile(path, data) {
+    const parts = path.split("/"); const name = parts.pop();
+    const d = await getDirPath(parts.join("/"), true);
+    const fh = await d.getFileHandle(name, { create: true });
+    const w = await fh.createWritable(); await w.write(data); await w.close();
+  }
+  async function exists(path) { try { await readFile(path); return true; } catch (e) { return false; } }
+
+  async function linkFolder(handle) {
+    if ((await handle.queryPermission({ mode: "readwrite" })) !== "granted" &&
+        (await handle.requestPermission({ mode: "readwrite" })) !== "granted") { toast("Permission was not granted"); return false; }
+    try { await handle.getDirectoryHandle("assets"); }
+    catch (e) { toast("That folder has no assets/ folder. Pick the portfolio folder that contains index.html."); return false; }
+    state.dir = handle; IDB.set("dir", handle);
+    if (state.dirty && state.data.PROJECTS.length) {
+      // keep the edits made before linking; flush any images waiting to be written
+      for (const [path, blob] of state.pending) await writeFile(path, blob);
+      state.pending.clear(); note(""); renderStatus(); toast("Folder linked. Press Save to write your changes."); return true;
+    }
+    try { state.data = parseProjects(await (await readFile("assets/projects.js")).text()); }
+    catch (e) { toast("Could not read assets/projects.js: " + e.message); return false; }
+    state.sel = 0; note(""); setDirty(false); render(); toast(`Loaded ${state.data.PROJECTS.length} projects`);
+    return true;
+  }
+  $("#openBtn").addEventListener("click", async () => {
+    if (!fsOK) { toast("Open this page in Chrome or Edge on your computer to save files."); return; }
+    try { await linkFolder(await window.showDirectoryPicker({ id: "portfolio", mode: "readwrite" })); }
+    catch (e) { if (e.name !== "AbortError") toast("Could not open the folder: " + e.message); }
+  });
+
+  /* ---------------- images ---------------- */
+  async function optimise(file) {
+    if (!state.optimise || !/^image\/(jpeg|png|webp)$/.test(file.type)) return { blob: file, ext: (file.name.split(".").pop() || "jpg").toLowerCase() };
+    const bmp = await createImageBitmap(file);
+    const s = Math.min(1, MAX_SIDE / Math.max(bmp.width, bmp.height));
+    const cv = document.createElement("canvas"); cv.width = Math.round(bmp.width * s); cv.height = Math.round(bmp.height * s);
+    cv.getContext("2d").drawImage(bmp, 0, 0, cv.width, cv.height);
+    const blob = await new Promise(r => cv.toBlob(r, "image/webp", WEBP_QUALITY));
+    return blob && blob.size < file.size ? { blob, ext: "webp" } : { blob: file, ext: (file.name.split(".").pop() || "jpg").toLowerCase() };
+  }
+  async function addImage(file, base) {
+    const { blob, ext } = await optimise(file);
+    if (server.on) {
+      let path;
+      try { path = await upload(blob, "images/" + base, ext); }
+      catch (e) {
+        if (e.status !== 401) { toast("Upload failed: " + e.message); throw e; }
+        await signIn(await probeServer() || { hasPassword: true }); path = await upload(blob, "images/" + base, ext);
+      }
+      state.blobs.set(path, URL.createObjectURL(blob));
+      return path;
+    }
+    let n = 1, path;
+    do { path = `images/${base}-${String(n).padStart(2, "0")}.${ext}`; n++; }
+    while ((state.dir && await exists(path)) || state.blobs.has(path) || allPaths().includes(path));
+    state.blobs.set(path, URL.createObjectURL(blob));
+    if (state.dir) await writeFile(path, blob); else state.pending.set(path, blob);
+    return path;
+  }
+  function allPaths() {
+    const d = state.data;
+    return [...d.PROJECTS.flatMap(p => [p.image, ...(p.gallery || [])]), ...d.PLAYGROUND.map(p => p.image), ...(d.PHOTOS || []).map(p => p.image), ...(d.JOYOUS ? [d.JOYOUS.banner, ...(d.JOYOUS.items || []).map(p => p.thumb)] : []), d.ABOUT && d.ABOUT.portrait].filter(Boolean);
+  }
+  function src(path) {
+    // preview URL for an image path: fresh upload, file in the linked folder, or the site's own copy
+    if (!path) return "";
+    if (state.blobs.has(path)) return state.blobs.get(path);
+    if (state.dir) {
+      readFile(path).then(f => { state.blobs.set(path, URL.createObjectURL(f)); $$(`img[data-path="${CSS.escape(path)}"]`).forEach(i => (i.src = state.blobs.get(path))); }).catch(() => {});
+      return "";
+    }
+    return path;
+  }
+  const img = (path, cls = "", alt = "") => path
+    ? `<img class="${cls}" data-path="${esc(path)}" src="${esc(src(path))}" alt="${esc(alt)}">`
+    : `<span class="${cls} noimg" aria-hidden="true"></span>`;
+  function pick(multi) {
+    return new Promise(res => {
+      const inp = multi ? $("#filePickMulti") : $("#filePick");
+      inp.value = ""; inp.onchange = () => res([...inp.files]); inp.click();
+    });
+  }
+  async function paletteFrom(path) {
+    // three colours from the cover: darkest, most saturated, lightest of the common ones
+    const im = new Image(); im.src = src(path) || path; await im.decode();
+    const cv = document.createElement("canvas"); cv.width = 48; cv.height = 36;
+    const ctx = cv.getContext("2d"); ctx.drawImage(im, 0, 0, 48, 36);
+    const px = ctx.getImageData(0, 0, 48, 36).data, buckets = new Map();
+    for (let i = 0; i < px.length; i += 4) {
+      const k = [px[i] >> 4, px[i + 1] >> 4, px[i + 2] >> 4].join(",");
+      const b = buckets.get(k) || { n: 0, r: 0, g: 0, b: 0 }; b.n++; b.r += px[i]; b.g += px[i + 1]; b.b += px[i + 2]; buckets.set(k, b);
+    }
+    const cols = [...buckets.values()].sort((a, b) => b.n - a.n).slice(0, 12).map(b => [b.r / b.n, b.g / b.n, b.b / b.n]);
+    const lum = c => 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+    const sat = c => Math.max(...c) - Math.min(...c);
+    const dark = cols.reduce((a, c) => (lum(c) < lum(a) ? c : a));
+    const light = cols.reduce((a, c) => (lum(c) > lum(a) ? c : a));
+    const vivid = cols.filter(c => c !== dark && c !== light).reduce((a, c) => (sat(c) > sat(a) ? c : a), cols[0]);
+    const hex = c => "#" + c.map(v => Math.round(v).toString(16).padStart(2, "0")).join("");
+    return [hex(dark), hex(vivid), hex(light)];
+  }
+
+  /* ---------------- drop zones ---------------- */
+  function dropzone(el, onFiles) {
+    el.addEventListener("dragover", e => { if ([...e.dataTransfer.types].includes("Files")) { e.preventDefault(); el.classList.add("is-over"); } });
+    el.addEventListener("dragleave", () => el.classList.remove("is-over"));
+    el.addEventListener("drop", e => { if (!e.dataTransfer.files.length) return; e.preventDefault(); el.classList.remove("is-over"); onFiles([...e.dataTransfer.files].filter(f => f.type.startsWith("image/"))); });
+  }
+  function sortable(container, selector, onMove) {
+    let from = -1;
+    $$(selector, container).forEach((el, i) => {
+      el.draggable = true;
+      el.addEventListener("dragstart", e => { from = i; e.dataTransfer.effectAllowed = "move"; e.dataTransfer.setData("text/plain", String(i)); });
+      el.addEventListener("dragover", e => { if (from < 0) return; e.preventDefault(); el.classList.add("is-drop"); });
+      el.addEventListener("dragleave", () => el.classList.remove("is-drop"));
+      el.addEventListener("drop", e => { if (from < 0) return; e.preventDefault(); el.classList.remove("is-drop"); if (from !== i) onMove(from, i); from = -1; });
+      el.addEventListener("dragend", () => (from = -1));
+    });
+  }
+  const move = (arr, a, b) => { const [x] = arr.splice(a, 1); arr.splice(b, 0, x); };
+
+  /* ---------------- render ---------------- */
+  function render() {
+    $$(".tab").forEach(t => { const on = t.dataset.tab === state.tab; t.classList.toggle("is-on", on); t.setAttribute("aria-selected", on); });
+    renderList(); renderEditor(); renderPreview(); renderStatus();
+  }
+
+  function renderList() {
+    const list = $("#list"), d = state.data;
+    $("#addBtn").hidden = state.tab === "site" || state.tab === "about";
+    $("#addBtn").textContent = state.tab === "playground" ? "+ Add images" : state.tab === "photos" ? "+ Add photos" : state.tab === "joyous" ? "+ New item" : "+ New project";
+    if (state.tab === "site") { list.innerHTML = ""; $("#count").textContent = "Name, email, showreel, music"; return; }
+    if (state.tab === "about") { list.innerHTML = ""; $("#count").textContent = "Title, intro, skills, experience, process"; return; }
+    const items = listFor(state.tab);
+    const banner = d.PHOTOS.filter(p => p.featured).length;
+    $("#count").textContent = state.tab === "photos" ? `${items.length} photos · ${banner}/10 in banner · drag to reorder`
+      : `${items.length} ${state.tab === "projects" ? "projects · drag to reorder" : "items · drag to reorder"}`;
+    const joyHead = state.tab === "joyous" ? `
+      <li class="item ${state.sel === -1 ? "is-on" : ""}" data-i="-1" data-fixed>
+        <span class="item__grip" aria-hidden="true"></span>
+        ${img(d.JOYOUS && d.JOYOUS.banner, "item__thumb")}
+        <span><span class="item__t">Channel</span><span class="item__s">Name, about, banner</span></span>
+      </li>` : "";
+    list.innerHTML = joyHead + items.map((p, i) => `
+      <li class="item ${i === state.sel ? "is-on" : ""}" data-i="${i}">
+        <span class="item__grip" aria-hidden="true">⋮⋮</span>
+        ${img(p.image || p.thumb, "item__thumb")}
+        <span><span class="item__t">${esc(p.title || "Untitled")}</span><span class="item__s">${esc(state.tab === "projects" ? [p.discipline, p.launch].filter(Boolean).join(" · ") : state.tab === "joyous" ? [p.kind, p.year].filter(Boolean).join(" · ") : state.tab === "photos" ? [p.featured ? "★ Banner" : "", p.place, p.year].filter(Boolean).join(" · ") || p.image : p.image)}</span></span>
+      </li>`).join("");
+    $$(".item", list).forEach(el => el.addEventListener("click", () => { state.sel = +el.dataset.i; state.confirmDelete = false; render(); }));
+    sortable(list, ".item:not([data-fixed])", (a, b) => { const sel = items[state.sel]; move(items, a, b); state.sel = items.indexOf(sel); setDirty(); render(); });
+  }
+
+  function field(label, name, value, { type = "text", area = false, hint = "", rows = 3, attrs = "" } = {}) {
+    const ctl = area
+      ? `<textarea name="${name}" rows="${rows}" ${attrs}>${esc(value)}</textarea>`
+      : `<input type="${type}" name="${name}" value="${esc(value)}" ${attrs}>`;
+    return `<label class="field"><span>${label}${hint ? ` <em>${hint}</em>` : ""}</span>${ctl}</label>`;
+  }
+
+  function renderEditor() {
+    const ed = $("#editor"), d = state.data;
+    if (state.tab === "site") return renderSite(ed);
+    if (state.tab === "about") return renderAbout(ed);
+    if (state.tab === "joyous" && state.sel === -1) return renderJoyChannel(ed);
+    const items = listFor(state.tab);
+    if (!items.length) {
+      ed.innerHTML = `<div class="empty"><h2>Nothing here yet</h2><p>${state.tab === "projects" ? "Press “+ New project”, give it a title and drop in a cover image." : state.tab === "photos" ? "Press “+ Add photos” to fill the Photo page. Star up to 10 for the top banner." : state.tab === "joyous" ? "Press “+ New item” to add a game or 3D toy to the Joyous page, or pick Channel to edit the banner and name." : "Press “+ Add images” to add side experiments to the Playground."}</p></div>`;
+      return;
+    }
+    state.sel = Math.min(state.sel, items.length - 1);
+    if (state.tab === "playground") return renderPlayItem(ed, items[state.sel]);
+    if (state.tab === "photos") return renderPhotoItem(ed, items[state.sel]);
+    if (state.tab === "joyous") return renderJoyItem(ed, items[state.sel]);
+    const p = items[state.sel];
+    const slugTaken = d.PROJECTS.some((q, k) => k !== state.sel && q.slug === p.slug);
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>${esc(p.title || "Untitled project")}</h2>
+        <div class="grid2">
+          ${field("Title", "title", p.title)}
+          <label class="field"><span>Page address <em>(#slug)</em></span><input type="text" name="slug" value="${esc(p.slug)}">${slugTaken ? `<span class="err">Another project already uses this address.</span>` : ""}</label>
+        </div>
+        <div class="grid3">
+          <label class="field"><span>Discipline</span><select name="discipline">${DISCIPLINES.map(x => `<option ${x === p.discipline ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+          ${field("Launch", "launch", p.launch, { hint: "e.g. Oct 2026" })}
+          ${field("Category line", "category", p.category, { hint: "home list" })}
+        </div>
+        <div class="grid2">
+          ${field("Role", "role", p.role)}
+          ${field("Team / client", "team", p.team)}
+        </div>
+        ${field("Short description", "desc", p.desc, { area: true, rows: 2, hint: "one sentence, shown on home" })}
+        ${field("About", "about", p.about, { area: true, rows: 5, hint: "project page paragraph" })}
+        <div class="grid2">
+          ${field("Recognition", "recognition", (p.recognition || []).join("\n"), { area: true, rows: 3, hint: "one award per line" })}
+          ${field("Visit site link", "url", p.url, { type: "url", hint: "leave empty to hide" })}
+        </div>
+
+        <section class="sect">
+          <h3>Cover</h3>
+          <p class="hint">Shown on the 3D stack, cropped to 4:3. Drop an image or click to choose.</p>
+          <div class="cover">
+            ${img(p.image, "", "Cover")}
+            <div class="drop" id="coverDrop" role="button" tabindex="0">Drop cover image here<br><small>JPG, PNG or WebP</small></div>
+          </div>
+        </section>
+
+        <section class="sect">
+          <h3>Project page images</h3>
+          <p class="hint">Top to bottom on the project page. Drag to reorder. Long full-page screenshots work.</p>
+          <div class="gallery" id="gallery">
+            ${(p.gallery || []).map((g, k) => `<div class="gimg" data-k="${k}">${img(g)}<div class="gimg__bar"><span>${String(k + 1).padStart(2, "0")}</span><button type="button" data-rm="${k}" aria-label="Remove image ${k + 1}">Remove</button></div></div>`).join("")}
+          </div>
+          <div class="drop" id="galleryDrop" role="button" tabindex="0">Drop images here (several at once) or click to choose</div>
+        </section>
+
+        <section class="sect">
+          <h3>Colours</h3>
+          <p class="hint">Three swatches beside the project on home.</p>
+          <div class="swatches">
+            ${[0, 1, 2].map(k => `<input type="color" name="pal${k}" value="${esc((p.palette || [])[k] || "#cccccc")}" aria-label="Swatch ${k + 1}">`).join("")}
+            <button class="btn btn--ghost" type="button" id="palAuto">Pick from cover</button>
+          </div>
+        </section>
+
+        <section class="sect">
+          <label class="field" style="grid-template-columns:auto 1fr;align-items:center;gap:8px"><input type="checkbox" id="optimise" ${state.optimise ? "checked" : ""}><span style="text-transform:none;letter-spacing:0;font-family:var(--f-ui);font-size:12px;color:var(--ink)">Optimise uploads (max ${MAX_SIDE}px, WebP) so the site loads fast</span></label>
+        </section>
+
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html#${esc(p.slug)}" target="_blank" rel="noopener">Open project page ↗</a>
+          <button class="btn btn--ghost" type="button" id="dupBtn">Duplicate</button>
+          <span id="delWrap">${state.confirmDelete
+            ? `<span class="confirm">Delete “${esc(p.title)}”? Images stay in the folder. <button class="btn btn--danger" type="button" id="delYes">Delete</button><button class="btn btn--ghost" type="button" id="delNo">Keep</button></span>`
+            : `<button class="btn btn--danger" type="button" id="delBtn">Delete project</button>`}</span>
+        </div>
+      </form>`;
+
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => {
+      const t = e.target, n = t.name; if (!n) return;
+      if (n === "recognition") p.recognition = t.value.split("\n").map(s => s.trim()).filter(Boolean);
+      else if (n.startsWith("pal")) { p.palette = p.palette || ["#cccccc", "#cccccc", "#cccccc"]; p.palette[+n.slice(3)] = t.value; }
+      else if (n === "slug") p.slug = slugify(t.value);
+      else {
+        const autoSlug = n === "title" && (p.slug === slugify(p.title || "") || !p.slug);
+        p[n] = t.value;
+        if (autoSlug) { p.slug = slugify(t.value); form.slug.value = p.slug; }
+        if (n === "title") $("h2", form).textContent = t.value || "Untitled project";
+      }
+      setDirty(); renderList(); renderPreview();
+    });
+    form.slug.addEventListener("change", () => { form.slug.value = p.slug; renderEditor(); });
+    $("#optimise").addEventListener("change", e => (state.optimise = e.target.checked));
+
+    const base = () => slugify(p.slug || p.title);
+    const setCover = async files => { if (!files[0]) return; p.image = await addImage(files[0], base() + "-cover"); if (!p.gallery || !p.gallery.length) p.gallery = [p.image]; setDirty(); render(); toast("Cover added"); };
+    const addGallery = async files => { if (!files.length) return; p.gallery = p.gallery || []; for (const f of files) p.gallery.push(await addImage(f, base())); setDirty(); render(); toast(`${files.length} image${files.length > 1 ? "s" : ""} added`); };
+    const cd = $("#coverDrop"), gd = $("#galleryDrop");
+    dropzone(cd, setCover); dropzone(gd, addGallery);
+    cd.addEventListener("click", async () => setCover(await pick(false)));
+    gd.addEventListener("click", async () => addGallery(await pick(true)));
+    [cd, gd].forEach(z => z.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); z.click(); } }));
+    $$("[data-rm]", form).forEach(b => b.addEventListener("click", () => { p.gallery.splice(+b.dataset.rm, 1); setDirty(); render(); }));
+    sortable($("#gallery"), ".gimg", (a, b) => { move(p.gallery, a, b); setDirty(); render(); });
+    $("#palAuto").addEventListener("click", async () => { try { p.palette = await paletteFrom(p.image); setDirty(); render(); } catch (e) { toast("Add a cover image first"); } });
+    $("#dupBtn").addEventListener("click", () => { const c = JSON.parse(JSON.stringify(p)); c.title += " copy"; c.slug = slugify(c.title); d.PROJECTS.splice(state.sel + 1, 0, c); state.sel++; setDirty(); render(); });
+    if ($("#delBtn")) $("#delBtn").addEventListener("click", () => { state.confirmDelete = true; renderEditor(); });
+    if ($("#delNo")) $("#delNo").addEventListener("click", () => { state.confirmDelete = false; renderEditor(); });
+    if ($("#delYes")) $("#delYes").addEventListener("click", () => { d.PROJECTS.splice(state.sel, 1); state.sel = Math.max(0, state.sel - 1); state.confirmDelete = false; setDirty(); render(); toast("Project deleted. Save to apply."); });
+  }
+
+  const joy = () => (state.data.JOYOUS = state.data.JOYOUS || { name: "Joyous", handle: "", about: "", banner: "", items: [] });
+  const listFor = tab => tab === "projects" ? state.data.PROJECTS : tab === "photos" ? state.data.PHOTOS : tab === "joyous" ? (state.data.JOYOUS ? state.data.JOYOUS.items || (state.data.JOYOUS.items = []) : []) : state.data.PLAYGROUND;
+
+  function renderJoyChannel(ed) {
+    const j = joy();
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>Joyous channel</h2>
+        <div class="grid2">${field("Channel name", "name", j.name)}${field("Handle", "handle", j.handle, { hint: "e.g. @phunguyen" })}</div>
+        ${field("About", "about", j.about, { area: true, rows: 3, hint: "one or two lines under the name" })}
+        <section class="sect"><h3>Banner</h3>
+          <p class="hint">The wide cover at the top, like a YouTube banner. About 2560 × 420 works best; on phones the left part shows.</p>
+          <div class="cover cover--wide">${img(j.banner, "is-wide", "Banner")}<div class="drop" id="joyBanner" role="button" tabindex="0">Drop a banner image here or click to choose</div></div>
+        </section>
+        <p class="hint">The round avatar is your head from the About page: it blinks and follows the cursor on its own.</p>
+      </form>`;
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => { j[e.target.name] = e.target.value; setDirty(); renderPreview(); });
+    const z = $("#joyBanner"), put = async f => { if (!f[0]) return; j.banner = await addImage(f[0], "joyous/banner"); setDirty(); render(); toast("Banner added"); };
+    dropzone(z, put); z.addEventListener("click", async () => put(await pick(false)));
+  }
+
+  function renderJoyItem(ed, it) {
+    const items = joy().items;
+    const slugTaken = items.some(q => q !== it && q.slug === it.slug);
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>${esc(it.title || "Untitled")}</h2>
+        <div class="grid2">
+          ${field("Title", "title", it.title)}
+          <label class="field"><span>Page address <em>(#joyous/…)</em></span><input type="text" name="slug" value="${esc(it.slug)}">${slugTaken ? `<span class="err">Another item already uses this address.</span>` : ""}</label>
+        </div>
+        <div class="grid3">
+          <label class="field"><span>Type</span><select name="kind">${JOY_KINDS.map(x => `<option ${x === it.kind ? "selected" : ""}>${x}</option>`).join("")}</select></label>
+          ${field("Year", "year", it.year)}
+          <label class="field"><span>Experience <em>(what plays)</em></span><select name="play">${Object.entries(JOY_PLAYS).map(([k, v]) => `<option value="${k}" ${k === it.play ? "selected" : ""}>${esc(v)}</option>`).join("")}${JOY_PLAYS[it.play] ? "" : `<option value="${esc(it.play)}" selected>${esc(it.play || "none")}</option>`}</select></label>
+        </div>
+        ${field("Description", "desc", it.desc, { area: true, rows: 3, hint: "shown on the page, say how to play" })}
+        <section class="sect"><h3>Thumbnail</h3>
+          <p class="hint">Shown in the grid, cropped to 16:9 (1280 × 720 works well).</p>
+          <div class="cover">${img(it.thumb, "is-169", it.title)}<div class="drop" id="joyThumb" role="button" tabindex="0">Drop a thumbnail here or click to choose</div></div>
+        </section>
+        <p class="hint">Each experience is built in code (assets/joyous.js). You can rename and re-skin the six here; a brand new game needs new code.</p>
+        <div class="actions">
+          <a class="btn btn--ghost" href="index.html#joyous/${esc(it.slug)}" target="_blank" rel="noopener">Open page ↗</a>
+          <button class="btn btn--danger" type="button" id="joyDel">Remove from Joyous</button>
+        </div>
+      </form>`;
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => {
+      const t = e.target, n = t.name; if (!n) return;
+      if (n === "slug") it.slug = slugify(t.value);
+      else {
+        const autoSlug = n === "title" && (it.slug === slugify(it.title || "") || !it.slug);
+        it[n] = t.value;
+        if (autoSlug) { it.slug = slugify(t.value); form.slug.value = it.slug; }
+        if (n === "title") $("h2", form).textContent = t.value || "Untitled";
+      }
+      setDirty(); renderList(); renderPreview();
+    });
+    form.slug.addEventListener("change", () => { form.slug.value = it.slug; renderEditor(); });
+    const z = $("#joyThumb"), put = async f => { if (!f[0]) return; it.thumb = await addImage(f[0], "joyous/" + slugify(it.slug || it.title)); setDirty(); render(); toast("Thumbnail added"); };
+    dropzone(z, put); z.addEventListener("click", async () => put(await pick(false)));
+    $("#joyDel").addEventListener("click", () => { items.splice(state.sel, 1); state.sel = Math.max(-1, state.sel - 1); setDirty(); render(); });
+  }
+
+  function renderPlayItem(ed, it) {
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>${esc(it.title || "Untitled")}</h2>
+        ${field("Caption", "title", it.title)}
+        <section class="sect"><h3>Image</h3>
+          <div class="cover">${img(it.image, "", it.title)}<div class="drop" id="playDrop" role="button" tabindex="0">Drop a new image to replace</div></div>
+        </section>
+        <div class="actions"><button class="btn btn--danger" type="button" id="playDel">Remove from Playground</button></div>
+      </form>`;
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => { it.title = e.target.value; $("h2", form).textContent = it.title || "Untitled"; setDirty(); renderList(); renderPreview(); });
+    const z = $("#playDrop"), put = async f => { if (!f[0]) return; it.image = await addImage(f[0], "play"); setDirty(); render(); };
+    dropzone(z, put); z.addEventListener("click", async () => put(await pick(false)));
+    $("#playDel").addEventListener("click", () => { state.data.PLAYGROUND.splice(state.sel, 1); state.sel = Math.max(0, state.sel - 1); setDirty(); render(); });
+  }
+
+  function renderPhotoItem(ed, it) {
+    const d = state.data, full = !it.featured && d.PHOTOS.filter(p => p.featured).length >= 10;
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>${esc(it.title || "Untitled")}</h2>
+        ${field("Title", "title", it.title)}
+        <div class="grid2">${field("Place", "place", it.place, { hint: "e.g. Đà Lạt" })}${field("Year", "year", it.year)}</div>
+        <label class="field" style="grid-template-columns:auto 1fr;align-items:center;gap:8px"><input type="checkbox" name="featured" ${it.featured ? "checked" : ""} ${full ? "disabled" : ""}><span style="text-transform:none;letter-spacing:0;font-family:var(--f-ui);font-size:12px;color:var(--ink)">Show in the top banner${full ? " (the banner already has 10 photos)" : " (up to 10 photos)"}</span></label>
+        <section class="sect"><h3>Image</h3>
+          <div class="cover">${img(it.image, "", it.title)}<div class="drop" id="photoDrop" role="button" tabindex="0">Drop a new image to replace</div></div>
+        </section>
+        <div class="actions"><button class="btn btn--danger" type="button" id="photoDel">Remove from Photo page</button></div>
+      </form>`;
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => {
+      const el = e.target;
+      if (el.name === "featured") { it.featured = el.checked; setDirty(); render(); return; }
+      it[el.name] = el.value; if (el.name === "title") $("h2", form).textContent = it.title || "Untitled";
+      setDirty(); renderList(); renderPreview();
+    });
+    const z = $("#photoDrop"), put = async f => { if (!f[0]) return; it.image = await addImage(f[0], "photo/photo"); setDirty(); render(); };
+    dropzone(z, put); z.addEventListener("click", async () => put(await pick(false)));
+    $("#photoDel").addEventListener("click", () => { d.PHOTOS.splice(state.sel, 1); state.sel = Math.max(0, state.sel - 1); setDirty(); render(); });
+  }
+
+
+  /* ---------------- about ---------------- */
+  const ABOUT_BLANK = () => ({ title: [], titleMobile: [], hint: "", lead: "", columns: [], experience: [], runner: true, portrait: "", approach: [], process: [] });
+  // the text the About page shows until an About section has been saved (same as in assets/app.js)
+  const ABOUT_START = () => ({"title": ["UX/UI, graphic &", "motion designer."], "titleMobile": ["UX/UI,", "graphic &", "motion", "designer."], "hint": "Move your cursor around", "lead": "I’m Phu, a designer in Ho Chi Minh City. For seven years I’ve helped startups, studios and cultural brands turn complex ideas into clear interfaces, sharp visual systems and motion that carries a story.", "columns": [{"title": "UX/UI", "items": ["Product & app design", "Websites", "Design systems", "Prototyping"]}, {"title": "Graphic", "items": ["Brand identity", "Logo & type", "Packaging", "Posters & print"]}, {"title": "Motion", "items": ["Brand motion", "UI animation", "Title sequences", "3D & loops"]}], "experience": [{"role": "Freelance designer", "years": "2023 — Now"}, {"role": "Senior designer, Studio name", "years": "2021 — 2023"}, {"role": "UI/UX designer, Company name", "years": "2019 — 2021"}], "portrait": "images/portrait.svg", "approach": [{"title": "Clarity first", "text": "Every screen, mark and frame has one job. I cut until it does that job well."}], "process": [{"title": "Listen", "text": "Kick-off, goals, audience and constraints."}, {"title": "Research", "text": "Competitors, references, user interviews where they help."}, {"title": "Direction", "text": "Two or three visual and UX routes, one recommendation."}, {"title": "Design", "text": "Flows, UI, identity system and key screens."}, {"title": "Motion", "text": "Transitions, micro-interactions and brand animation."}, {"title": "Prototype", "text": "Clickable prototype and testing with real people."}, {"title": "Handoff", "text": "Specs, assets and support during build."}]});
+  const about = () => (state.data.ABOUT = Object.assign(ABOUT_BLANK(), state.data.ABOUT || ABOUT_START()));
+  const toLines = v => v.split("\n").map(x => x.trim()).filter(Boolean);
+  // a small table of rows: each row has the given fields, plus remove / move buttons and an add button below
+  function rowsHTML(key, rows, cols, addLabel) {
+    return `<div class="rows" data-rows="${key}">
+      ${rows.map((r, k) => `<div class="rowed${cols.length > 2 ? " rowed--3" : ""}" data-k="${k}">
+        <span class="rowed__n">${String(k + 1).padStart(2, "0")}</span>
+        ${cols.map(c => c.area
+          ? `<textarea data-f="${c.name}" rows="${c.rows || 2}" placeholder="${esc(c.ph)}" aria-label="${esc(c.ph)} ${k + 1}">${esc(c.get ? c.get(r) : r[c.name])}</textarea>`
+          : `<input type="text" data-f="${c.name}" value="${esc(r[c.name])}" placeholder="${esc(c.ph)}" aria-label="${esc(c.ph)} ${k + 1}">`).join("")}
+        <span class="rowed__b">
+          <button type="button" data-up="${k}" aria-label="Move up" ${k ? "" : "disabled"}>↑</button>
+          <button type="button" data-del="${k}" aria-label="Remove row ${k + 1}">×</button>
+        </span>
+      </div>`).join("")}
+      <button class="btn btn--ghost" type="button" data-add>${addLabel}</button>
+    </div>`;
+  }
+  function renderAbout(ed) {
+    const A = about();
+    const C = {
+      columns: { cols: [{ name: "title", ph: "Heading" }, { name: "items", ph: "One skill per line", area: true, rows: 4, get: r => (r.items || []).join("\n") }], blank: () => ({ title: "", items: [] }), add: "+ Add column" },
+      experience: { cols: [{ name: "role", ph: "Role" }, { name: "company", ph: "Company" }, { name: "years", ph: "2023 — Now" }], blank: () => ({ role: "", company: "", years: "" }), add: "+ Add job" },
+      approach: { cols: [{ name: "title", ph: "Name" }, { name: "text", ph: "What it means", area: true }], blank: () => ({ title: "", text: "" }), add: "+ Add approach" },
+      process: { cols: [{ name: "title", ph: "Step" }, { name: "text", ph: "What happens", area: true }], blank: () => ({ title: "", text: "" }), add: "+ Add step" },
+    };
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>About me</h2>
+        <section class="sect"><h3>Big title</h3>
+          <p class="hint">Each line is one line of the huge heading. Phones use their own, shorter lines (leave empty to reuse the desktop ones).</p>
+          <div class="grid2">
+            ${field("Desktop lines", "title", lines(A.title).join("\n"), { area: true, rows: 3, hint: "one line each" })}
+            ${field("Phone lines", "titleMobile", lines(A.titleMobile).join("\n"), { area: true, rows: 4, hint: "one line each" })}
+          </div>
+          ${field("Small line under your head", "hint", A.hint, { hint: "e.g. Move your cursor around" })}
+        </section>
+        <section class="sect"><h3>Intro</h3>
+          ${field("Intro", "lead", A.lead, { area: true, rows: 8, hint: "leave an empty line between paragraphs" })}
+        </section>
+        <section class="sect"><h3>What I do</h3>
+          <p class="hint">Columns of skills. Three fit side by side on a computer, two on a phone.</p>
+          ${rowsHTML("columns", A.columns, C.columns.cols, C.columns.add)}
+        </section>
+        <section class="sect"><h3>Experience</h3>
+          ${rowsHTML("experience", A.experience, C.experience.cols, C.experience.add)}
+        </section>
+        <section class="sect"><h3>Bottom of the page</h3>
+          <label class="field" style="grid-template-columns:auto 1fr;align-items:center;gap:8px"><input type="checkbox" name="runner" ${A.runner !== false ? "checked" : ""}><span style="text-transform:none;letter-spacing:0;font-family:var(--f-ui);font-size:12px;color:var(--ink)">Show the running mascot (suits up in armour while your tools fly around him)</span></label>
+          <p class="hint">Untick to show a portrait photo instead. The portrait is shown about 360 px wide (4:5 works well); leave it empty to show nothing.</p>
+          <div class="cover">${img(A.portrait, "", "Portrait")}<div class="drop" id="portraitDrop" role="button" tabindex="0">Drop a portrait here or click to choose</div></div>
+          ${A.portrait ? `<div><button class="btn btn--ghost" type="button" id="portraitRm">Remove portrait</button></div>` : ""}
+        </section>
+        <section class="sect"><h3>Process &amp; Approach card</h3>
+          <p class="hint">Opens from the “Process &amp; Approach” button. Numbers (A1, P1…) follow the order here. With both lists empty the button hides.</p>
+          <p class="field"><span>Approach</span></p>
+          ${rowsHTML("approach", A.approach, C.approach.cols, C.approach.add)}
+          <p class="field"><span>Process</span></p>
+          ${rowsHTML("process", A.process, C.process.cols, C.process.add)}
+        </section>
+        <div class="actions"><a class="btn btn--ghost" href="index.html#about" target="_blank" rel="noopener">Open About page ↗</a></div>
+      </form>`;
+    const form = $("#form");
+    form.addEventListener("submit", e => e.preventDefault());
+    form.addEventListener("input", e => {
+      const t = e.target, box = t.closest("[data-rows]");
+      if (box) {
+        const r = A[box.dataset.rows][+t.closest(".rowed").dataset.k], f = t.dataset.f;
+        r[f] = f === "items" ? toLines(t.value) : t.value;
+      } else if (t.name === "runner") A.runner = t.checked;
+      else if (t.name === "title" || t.name === "titleMobile") A[t.name] = toLines(t.value);
+      else if (t.name) A[t.name] = t.value;
+      setDirty(); renderPreview();
+    });
+    $$("[data-rows]", form).forEach(box => {
+      const key = box.dataset.rows, arr = A[key];
+      box.addEventListener("click", e => {
+        const b = e.target.closest("button"); if (!b) return;
+        if (b.hasAttribute("data-add")) arr.push(C[key].blank());
+        else if (b.dataset.del != null) arr.splice(+b.dataset.del, 1);
+        else if (b.dataset.up != null) move(arr, +b.dataset.up, +b.dataset.up - 1);
+        else return;
+        setDirty(); renderAbout(ed); renderPreview();
+        if (b.hasAttribute("data-add")) { const last = $$(`[data-rows="${key}"] .rowed`, ed).pop(); if (last) $("input,textarea", last).focus(); }
+      });
+    });
+    const z = $("#portraitDrop"), put = async f => { if (!f[0]) return; A.portrait = await addImage(f[0], "portrait"); setDirty(); render(); toast("Portrait added"); };
+    dropzone(z, put); z.addEventListener("click", async () => put(await pick(false)));
+    z.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); z.click(); } });
+    if ($("#portraitRm")) $("#portraitRm").addEventListener("click", () => { A.portrait = ""; setDirty(); render(); });
+  }
+  const lines = v => (Array.isArray(v) ? v : String(v || "").split("\n")).map(x => String(x).trim()).filter(Boolean);
+
+  function renderSite(ed) {
+    const s = state.data.SITE;
+    ed.innerHTML = `
+      <form class="form" id="form" autocomplete="off">
+        <h2>Site settings</h2>
+        <div class="grid2">${field("Your name", "name", s.name)}${field("Email", "email", s.email, { type: "email" })}</div>
+        <div class="grid2">${field("City", "city", s.city)}${field("Time zone", "timezone", s.timezone, { hint: "e.g. Asia/Ho_Chi_Minh" })}</div>
+        ${field("Showreel", "showreel", s.showreel, { hint: "images/showreel.mp4 or a Vimeo / YouTube embed link" })}
+        <section class="sect"><h3>Background music</h3>
+          <p class="hint">Loops while a visitor has Audio switched On. MP3 works everywhere; keep it under about 4 MB. Leave the path empty for no music.</p>
+          ${field("Music file", "music", s.music, { hint: "e.g. audio/coffee-jazz-loop.mp3" })}
+          <div class="swatches">
+            ${s.music ? `<audio controls preload="none" src="${esc(src(s.music) || s.music)}" style="height:32px"></audio>` : ""}
+            <button class="btn btn--ghost" type="button" id="musicPick">Choose a music file</button>
+          </div>
+        </section>
+      </form>`;
+    $("#form").addEventListener("input", e => { s[e.target.name] = e.target.value; setDirty(); });
+    $("#musicPick").addEventListener("click", () => {
+      const inp = document.createElement("input"); inp.type = "file"; inp.accept = "audio/*";
+      inp.onchange = async () => {
+        const f = inp.files[0]; if (!f) return;
+        const ext = (f.name.split(".").pop() || "mp3").toLowerCase();
+        let path = `audio/${slugify(f.name.replace(/\.[^.]+$/, ""))}.${ext}`;
+        if (server.on) { try { path = await upload(f, path.replace(/\.[^.]+$/, ""), ext); } catch (err) { toast("Upload failed: " + err.message); return; } }
+        else if (state.dir) await writeFile(path, f); else state.pending.set(path, f);
+        state.blobs.set(path, URL.createObjectURL(f));
+        s.music = path; setDirty(); render(); toast("Music added");
+      };
+      inp.click();
+    });
+    $("#form").addEventListener("submit", e => e.preventDefault());
+  }
+
+  function renderPreview() {
+    const pv = $("#prev"), d = state.data;
+    if (state.tab === "photos" && d.PHOTOS.length) {
+      const ph = d.PHOTOS[state.sel] || d.PHOTOS[0], f = d.PHOTOS.filter(x => x.featured);
+      pv.innerHTML = `
+      <p class="prev__k">${ph.featured ? `Top banner · slide ${f.indexOf(ph) + 1} of ${f.length}` : "On the drifting wall"}</p>
+      <div class="card">${img(ph.image, "", "")}<p class="card__t">${esc(ph.title)}</p><p class="card__d">${esc([ph.place, ph.year].filter(Boolean).join(", "))}</p></div>
+      <p class="prev__k">Banner order follows the list: the first 10 starred photos play in turn.</p>`;
+      return;
+    }
+    if (state.tab === "joyous") {
+      const j = d.JOYOUS || {}, it = (j.items || [])[state.sel];
+      pv.innerHTML = it ? `
+      <p class="prev__k">In the Joyous grid</p>
+      <div class="card">${img(it.thumb, "is-169", "")}<p class="card__cat">${esc(it.kind)} · ${esc(it.year)}</p><p class="card__t">${esc(it.title)}</p><p class="card__d">${esc(it.desc)}</p></div>
+      <p class="prev__k">Plays: ${esc(JOY_PLAYS[it.play] || it.play || "nothing yet")}</p>` : `
+      <p class="prev__k">Channel header</p>
+      <div class="card">${img(j.banner, "is-wide", "")}<p class="card__t">${esc(j.name || "Joyous")}</p><p class="card__cat">${esc([j.handle, (j.items || []).length + " experiences"].filter(Boolean).join(" · "))}</p><p class="card__d">${esc(j.about)}</p></div>`;
+      return;
+    }
+    if (state.tab === "about") {
+      const A = d.ABOUT || {};
+      pv.innerHTML = `
+      <p class="prev__k">About page title</p>
+      <p class="big">${lines(A.title).map(esc).join("<br>")}</p>
+      <p class="card__d" style="margin-top:12px">${esc(A.lead || "")}</p>
+      ${A.runner !== false ? `<div class="card" style="margin-top:12px">${img("images/mascot/run/armored-running.webp", "", "")}</div>` : A.portrait ? `<div class="card" style="margin-top:12px">${img(A.portrait, "", "")}</div>` : ""}
+      <p class="prev__k">${(A.columns || []).length} skill columns · ${(A.experience || []).length} jobs · ${(A.process || []).length} process steps</p>`;
+      return;
+    }
+    if (state.tab !== "projects" || !d.PROJECTS.length) { pv.innerHTML = `<p class="prev__k">Preview</p><p style="color:var(--muted)">Select a project to see how it appears on the site.</p>`; return; }
+    const p = d.PROJECTS[state.sel] || d.PROJECTS[0];
+    pv.innerHTML = `
+      <p class="prev__k">On the home stack</p>
+      <div class="card">
+        ${img(p.image, "", "")}
+        <p class="card__cat">${esc(p.category)}</p>
+        <p class="card__t">${esc(p.title)}</p>
+        <p class="card__d">${esc(p.desc)}</p>
+        <div class="card__sw">${(p.palette || []).map(c => `<i style="background:${esc(c)}"></i>`).join("")}</div>
+      </div>
+      <p class="prev__k">Project page title</p>
+      <p class="big">${esc(p.title)}</p>
+      <p class="prev__k">${(p.gallery || []).length} images · ${esc((p.recognition || []).length ? p.recognition.length + " awards" : "no awards")}</p>`;
+  }
+
+  /* ---------------- tabs / add ---------------- */
+  $$(".tab").forEach(t => t.addEventListener("click", () => { state.tab = t.dataset.tab; state.sel = t.dataset.tab === "joyous" && !listFor("joyous").length ? -1 : 0; state.confirmDelete = false; render(); }));
+  $("#addBtn").addEventListener("click", async () => {
+    const d = state.data;
+    if (state.tab === "projects") {
+      let n = d.PROJECTS.length + 1, title;
+      do { title = `New project ${n++}`; } while (d.PROJECTS.some(p => p.title === title));
+      d.PROJECTS.unshift({ slug: slugify(title), title, category: "", discipline: "UX/UI", role: "", team: "", launch: "",
+        recognition: [], url: "", desc: "", about: "", palette: ["#2b2b2b", "#8a8a8a", "#e6e6e6"], image: "", gallery: [] });
+      state.sel = 0; setDirty(); render(); $("#form [name=title]").select();
+    } else if (state.tab === "photos") {
+      const files = await pick(true); if (!files.length) return;
+      for (const f of files) d.PHOTOS.push({ title: f.name.replace(/\.[^.]+$/, ""), place: "", year: String(new Date().getFullYear()), featured: false, image: await addImage(f, "photo/photo") });
+      state.sel = d.PHOTOS.length - 1; setDirty(); render(); toast(`${files.length} added`);
+    } else if (state.tab === "joyous") {
+      const items = joy().items; let n = items.length + 1, title;
+      do { title = `New item ${n++}`; } while (items.some(p => p.title === title));
+      items.push({ slug: slugify(title), play: "ballpit", title, kind: "Toy", year: String(new Date().getFullYear()), thumb: "", desc: "" });
+      state.sel = items.length - 1; setDirty(); render(); $("#form [name=title]").select();
+    } else if (state.tab === "playground") {
+      const files = await pick(true); if (!files.length) return;
+      for (const f of files) d.PLAYGROUND.push({ title: f.name.replace(/\.[^.]+$/, ""), image: await addImage(f, "play") });
+      state.sel = d.PLAYGROUND.length - 1; setDirty(); render(); toast(`${files.length} added`);
+    }
+  });
+
+  /* ---------------- save ---------------- */
+  async function save() {
+    if (!state.dirty) return;
+    const d = state.data;
+    const bad = d.PROJECTS.find((p, i) => !p.title || !p.slug || d.PROJECTS.findIndex(q => q.slug === p.slug) !== i);
+    if (bad) { state.tab = "projects"; state.sel = d.PROJECTS.indexOf(bad); render(); toast("Each project needs a title and its own page address"); return; }
+    const ji = (d.JOYOUS && d.JOYOUS.items) || [], badJ = ji.find((p, i) => !p.title || !p.slug || ji.findIndex(q => q.slug === p.slug) !== i);
+    if (badJ) { state.tab = "joyous"; state.sel = ji.indexOf(badJ); render(); toast("Each Joyous item needs a title and its own page address"); return; }
+    if (server.on) {
+      if (server.old) { toast("Restart start.bat first, then reload the dashboard"); return; }
+      try { await api("save", { json: { content: d } }); setDirty(false); toast("Saved. Reload the site to see it."); }
+      catch (e) {
+        if (e.status === 401) { await signIn(await probeServer() || { hasPassword: true }); return save(); }
+        toast("Could not save: " + e.message);
+      }
+      return;
+    }
+    if (!state.dir) {
+      if (!fsOK) { toast("Saving needs Chrome or Edge on your computer"); return; }
+      toast("Choose your portfolio folder to save into");
+      try { if (!(await linkFolder(await window.showDirectoryPicker({ id: "portfolio", mode: "readwrite" })))) return; }
+      catch (e) { return; }
+    }
+    try {
+      // one backup of the previous file per session
+      if (!save.backedUp) { try { await writeFile("assets/projects.backup.js", await (await readFile("assets/projects.js")).text()); } catch (e) {} save.backedUp = true; }
+      await writeFile("assets/projects.js", serialise(d));
+      setDirty(false); toast("Saved. Reload the site to see it.");
+    } catch (e) { toast("Could not save: " + e.message); }
+  }
+  $("#saveBtn").addEventListener("click", save);
+  addEventListener("keydown", e => { if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "s") { e.preventDefault(); save(); } });
+  addEventListener("beforeunload", e => { if (state.dirty) { e.preventDefault(); e.returnValue = ""; } });
+
+  /* ---------------- start ---------------- */
+  (async () => {
+    // 0) served by server.js or a PHP host: sign in and use the project database
+    const st = await probeServer();
+    if (st) {
+      server.on = true; server.kind = st.server;
+      // a server started before the About tab existed would drop the About section on save
+      server.old = !(st.keys || []).includes("ABOUT");
+      if (server.old) note("The server running now is an older version and would lose the About page when saving. Close the start.bat window, open start.bat again, then reload this page.");
+      $("#openBtn").hidden = true; $("#signOut").hidden = false;
+      $("#signOut").addEventListener("click", async () => { if (state.dirty && !confirm("Sign out without saving?")) return; state.dirty = false; await api("logout", { json: {} }).catch(() => {}); location.reload(); });
+      if (!st.authed) await signIn(st);
+      try { state.data = await loadFromServer(); } catch (e) { note("Could not load the content: " + esc(e.message)); }
+      render(); return;
+    }
+    // 1) a folder linked last time
+    if (fsOK) {
+      const h = await IDB.get("dir");
+      if (h && (await h.queryPermission({ mode: "readwrite" })) === "granted") { if (await linkFolder(h)) return; }
+      else if (h) note(`Last time you used the folder <b>${esc(h.name)}</b>. Press <b>Open portfolio folder</b> to continue editing it.`);
+    }
+    // 2) the site's own projects.js (works when this page is served next to the site)
+    try {
+      const text = await (await fetch("assets/projects.js", { cache: "no-store" })).text();
+      state.data = parseProjects(text);
+      if (!$("#note").innerHTML) note(fsOK
+        ? `Showing the projects from this site. Press <b>Open portfolio folder</b> and pick the folder that contains <code>index.html</code> so uploads and Save write straight into it.`
+        : `Showing the projects from this site. Saving needs Chrome or Edge on a computer: open <code>admin.html</code> from your portfolio folder there.`);
+    } catch (e) {
+      note(`Press <b>Open portfolio folder</b> and pick the folder that contains <code>index.html</code>.`);
+    }
+    render();
+  })();
+})();
+</script>
+</body>
+</html>

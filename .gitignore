@@ -1,0 +1,9 @@
+# secrets and local-only data: never commit
+data/auth.php
+data/backups/
+data/*.bak
+assets/*.backup.js
+_v1/
+node_modules/
+.DS_Store
+Thumbs.db

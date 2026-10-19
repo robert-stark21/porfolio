@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Phu Nguyen Portfolio</title>
+<meta name="description" content="Phu Nguyen is a UX/UI, graphic and motion designer based in Ho Chi Minh City, Vietnam.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..500&family=Inter+Tight:wght@400;500&family=JetBrains+Mono:wght@400&family=Newsreader:ital,opsz@1,6..72&display=swap">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="is-loading is-dark">
+
+<!-- fluid smoke behind the carousel (assets/splash.js) -->
+<canvas class="splash" id="splash" aria-hidden="true"></canvas>
+
+<!-- project carousel (built by assets/carousel.js) -->
+<div class="stage" id="stage" tabindex="0"></div>
+
+<!-- ================= CHROME (always visible) ================= -->
+<header class="chrome">
+  <a class="logo" href="#home" data-route="home" data-sfx aria-label="Phu Nguyen, home">
+    <span class="logo__mark">PHUNGUYEN<sup>©</sup></span>
+    <span class="logo__meta"><span>© <span data-year>2026</span></span><span>hcmc, vn</span><span>+84</span></span>
+  </a>
+
+  <nav class="nav" aria-label="Main">
+    <button class="nav__toggle" type="button" id="navToggle" aria-expanded="false" aria-controls="menuPanel" aria-label="Open menu" data-sfx>
+      <span class="nav__textWrap" aria-hidden="true"><span class="nav__textInner" id="navText"><span>Menu</span></span></span>
+      <span class="nav__icon" id="navIcon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </nav>
+
+  <button class="audio" type="button" id="audio" aria-pressed="false">Audio <span class="swap" data-audio-label>Off</span> <span aria-hidden="true">—</span></button>
+
+  <p class="where"><span>Working globally</span><span>HCMC <span data-clock>--:--</span></span></p>
+
+  <div class="inquiry">
+    <span class="inquiry__states" aria-hidden="true">
+      <span class="is-on" data-state="idle">For inquiries</span>
+      <span data-state="hover">Click to copy</span>
+      <span data-state="done">Copied</span>
+    </span>
+    <button class="inquiry__mail" type="button" id="mail">
+      <span data-email>hello@phunguyen.design</span>
+      <span class="uline"><i></i><i></i></span>
+    </button>
+  </div>
+</header>
+
+<!-- ================= MENU (staggered panel, slides in from the left) ================= -->
+<div class="smenu" id="menu">
+  <div class="smenu__layers" aria-hidden="true"><div class="smenu__layer"></div><div class="smenu__layer"></div></div>
+  <aside class="smenu__panel" id="menuPanel" aria-hidden="true" aria-label="Menu">
+    <ul class="smenu__list" id="navList">
+      <li><a href="#home" data-route="home" data-sfx><span class="smenu__label">Work</span></a></li>
+      <li><a href="#about" data-route="about" data-sfx><span class="smenu__label">About</span></a></li>
+      <li><a href="#playground" data-route="playground" data-sfx><span class="smenu__label">Playground</span></a></li>
+      <li><a href="#photo" data-route="photo" data-sfx><span class="smenu__label">Photo</span></a></li>
+      <li><a href="#joyous" data-route="joyous" data-sfx><span class="smenu__label">Joyous</span></a></li>
+      <li><a href="#contact" data-route="contact" data-sfx><span class="smenu__label">Contact</span></a></li>
+    </ul>
+    <svg class="smenu__arrow" id="navArrow" width="34" height="12" viewBox="0 0 34 12" aria-hidden="true"><path d="M0 6h32M27 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>
+    <div class="smenu__socials">
+      <p class="smenu__k">Socials</p>
+      <ul>
+        <li><a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a></li>
+        <li><a href="https://dribbble.com/" target="_blank" rel="noopener">Dribbble</a></li>
+        <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a></li>
+      </ul>
+    </div>
+  </aside>
+</div>
+
+<!-- ================= HOME UI (below the carousel) ================= -->
+<section class="home" id="home" aria-label="Selected work">
+  <div class="info" id="info">
+    <div class="count">
+      <p class="count__hint"><span>Drag · scroll</span><span>Selected work</span></p>
+      <p class="count__num" aria-live="polite"><span class="count__cur" id="countCur">01</span><span class="count__tot" id="countTot">/12</span></p>
+    </div>
+
+    <div class="info__main">
+      <p class="info__cat" data-f="category"></p>
+      <h2 class="info__title" data-f="title"></h2>
+      <p class="info__desc" data-f="desc"></p>
+      <a class="info__open" id="openProject" href="#" data-sfx>View project <span aria-hidden="true">↗</span></a>
+    </div>
+
+    <div class="info__side">
+      <dl class="meta" id="meta">
+        <div><dt>Role</dt><dd data-f="role"></dd></div>
+        <div><dt>Team</dt><dd data-f="team"></dd></div>
+        <div><dt>Launch</dt><dd data-f="launch"></dd></div>
+        <div><dt>Discipline</dt><dd data-f="discipline"></dd></div>
+      </dl>
+      <div class="info__foot">
+        <div class="swatches" id="swatches" aria-hidden="true"><i></i><i></i><i></i></div>
+        <a class="reel" id="reel" href="#" target="_blank" rel="noopener" data-sfx>’26 showreel <span aria-hidden="true">›</span></a>
+      </div>
+    </div>
+  </div>
+
+  <p class="hint-mobile">Swipe to browse · tap the middle cover to open</p>
+</section>
+
+<!-- ================= PAGES (project / about / playground / contact) ================= -->
+<main class="page" id="page" tabindex="-1" hidden></main>
+
+<!-- ================= TRANSITION ================= -->
+<div class="veil" id="veil" aria-hidden="true"><div class="veil__panel"></div><p class="veil__label" id="veilLabel"></p></div>
+
+<!-- ================= INTRO ================= -->
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader__top"></div>
+  <div class="loader__bottom"></div>
+  <div class="loader__push"></div>
+  <div class="loader__curtain loader__curtain--l"></div>
+  <div class="loader__curtain loader__curtain--r"></div>
+  <div class="loader__jumper" id="jumper"></div>
+  <span class="loader__count" id="loaderCount">0</span>
+</div>
+
+<!-- ================= CONTACT CARDS (slide up over the stack) ================= -->
+<div class="cards" id="cards" hidden>
+  <section class="card card--dark" aria-labelledby="hiTitle">
+    <div class="card__bar"><span>Contact</span><button type="button" data-cards-close>Close ×</button></div>
+    <h2 class="card__title" id="hiTitle">Come say hi</h2>
+    <div class="card__grid">
+      <div><p class="card__k">Drop me a line</p><button type="button" class="card__mail" data-copy-mail data-email>hello@phunguyen.design</button></div>
+      <div><p class="card__k">Local time</p><p>HCMC <span data-clock>--:--</span> · GMT+7</p></div>
+      <div><p class="card__k">Case studies</p><a href="https://www.behance.net/" target="_blank" rel="noopener">Behance</a><a href="https://dribbble.com/" target="_blank" rel="noopener">Dribbble</a></div>
+      <div><p class="card__k">Motion &amp; reels</p><a href="https://vimeo.com/" target="_blank" rel="noopener">Vimeo</a><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></div>
+      <div><p class="card__k">Work &amp; life updates</p><a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></div>
+      <div><p class="card__k">Availability</p><p>Open for freelance from Nov 2026</p></div>
+    </div>
+  </section>
+  <section class="card card--light" aria-label="Credits">
+    <div class="card__bar"><span>Credits</span><span>©</span></div>
+    <img class="card__avatar" src="images/portrait.svg" alt="Portrait of Phu Nguyen (placeholder)" width="900" height="1125">
+    <div class="card__grid card__grid--one">
+      <div><p class="card__k">Design &amp; motion</p><p>Phu Nguyen</p></div>
+      <div><p class="card__k">Built with</p><p>GSAP, WebGL</p></div>
+      <div><p class="card__k">Type</p><p>Bricolage Grotesque, Inter Tight, JetBrains Mono</p></div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= SHOWREEL ================= -->
+<div class="lightbox" id="reelBox" hidden role="dialog" aria-modal="true" aria-label="Showreel">
+  <div class="lightbox__media lightbox__media--reel" id="reelMedia"><span class="spinner" aria-hidden="true"></span></div>
+  <button class="lightbox__close" type="button" data-lb-close>Close ×</button>
+</div>
+
+<!-- ================= LIGHTBOX (playground) ================= -->
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Image viewer">
+  <figure class="lightbox__media" id="lbMedia"></figure>
+  <button class="lightbox__close" type="button" data-lb-close>Close ×</button>
+  <button class="lightbox__nav lightbox__nav--prev" type="button" data-lb="-1" aria-label="Previous">←</button>
+  <button class="lightbox__nav lightbox__nav--next" type="button" data-lb="1" aria-label="Next">→</button>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- libraries (pinned) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<!-- site -->
+<script src="assets/projects.js"></script>
+<script src="assets/carousel-ring.js"></script>
+<script src="assets/carousel.js"></script>
+<script src="assets/splash.js"></script>
+<script src="assets/photo.js"></script>
+<script src="assets/joyous.js"></script>
+<script src="assets/runner.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
