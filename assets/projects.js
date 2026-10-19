@@ -112,6 +112,39 @@ window.ABOUT = {
 
 window.PROJECTS = [
   {
+    "slug": "ivfmd-hoi-nghi-dau-nam-2026",
+    "title": "IVFMD Hội Nghị Đầu Năm 2026",
+    "category": "Event motion — Gen In Us, Fold Together",
+    "discipline": "Motion design",
+    "role": "Event visuals · Opener · Award videos",
+    "team": "IVFMD Group",
+    "launch": "25–26 Feb 2026",
+    "recognition": [],
+    "url": "",
+    "desc": "Stage visuals and award films for IVFMD Group’s 2026 kick-off conference at Centara Mirage Mũi Né.",
+    "about": "Stage visuals and award films for IVFMD Group’s 2026 kick-off conference at Centara Mirage Mũi Né. The theme, Gen In Us – Fold Together, became an origami system: a sheet of paper folds into a crane, a flock and finally a chrome crane, and every award (Best of the Best, Team Excellence, Outstanding, Well-done, Dedication, Quality Improvement Projects) opens with its own folded shape and fan reveal. I made the opener, stage backgrounds and award videos; this reel cuts them together.",
+    "palette": [
+      "#1B3A63",
+      "#F2C230",
+      "#E9EEF2"
+    ],
+    "image": "images/ivfmd-2026/cover.webp",
+    "gallery": [
+      "images/ivfmd-2026/showreel.mp4",
+      "images/ivfmd-2026/still-02.webp",
+      "images/ivfmd-2026/still-01.webp",
+      "images/ivfmd-2026/still-03.webp",
+      "images/ivfmd-2026/still-04.webp",
+      "images/ivfmd-2026/still-05.webp",
+      "images/ivfmd-2026/still-06.webp",
+      "images/ivfmd-2026/still-07.webp",
+      "images/ivfmd-2026/still-08.webp",
+      "images/ivfmd-2026/still-09.webp",
+      "images/ivfmd-2026/still-10.webp",
+      "images/ivfmd-2026/still-11.webp"
+    ]
+  },
+  {
     "slug": "ke-hoi-sinh",
     "title": "Kẻ Hồi Sinh",
     "category": "Reawakened Man — Korean action",
